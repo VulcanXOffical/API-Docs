@@ -16,7 +16,7 @@ jobs:
           port: 22
           script: |
             echo -e "\nDeploying Vuclanx Prod Slates\n================================="
-            cd /srv/vulcanx-doc/slate
+            cd /srv/vulcanx-doc/prod/slate
             git pull origin main
             docker system prune -af
             docker compose up -d --build
