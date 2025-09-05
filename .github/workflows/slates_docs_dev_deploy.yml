@@ -1,4 +1,4 @@
-name: vuclanx-slates-deployment
+name: vuclanx-dev-slates-deployment
 on:
   push:
     branches:
@@ -10,13 +10,13 @@ jobs:
       - name: Connect to Remote Server and Deploy
         uses: appleboy/ssh-action@v0.1.8
         with:
-          host: ${{ secrets.REMOTE_SERVER_PROD }}
-          username: ${{ secrets.REMOTE_USER_PROD }}
-          key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}
+          host: ${{ secrets.REMOTE_SERVER_DEV }}
+          username: ${{ secrets.REMOTE_USER_DEV }}
+          key: ${{ secrets.SSH_PRIVATE_KEY_DEV }}
           port: 22
           script: |
-            echo -e "\nDeploying Vuclanx Prod Slates\n================================="
-            cd /srv/vulcanx-doc/dev/slate
+            echo -e "\nDeploying Vuclanx DEV Slates\n================================="
+            cd /home/ubuntu/vulcanx-dev/slate
             git pull origin dev
             docker system prune -af
             docker compose up -d --build
