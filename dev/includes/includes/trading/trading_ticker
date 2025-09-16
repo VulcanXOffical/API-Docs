@@ -1,0 +1,49 @@
+<h2 id='ticker'>Ticker</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Public<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Ticker endpoint provide a 24-hour pricing and volume summary for each market pair and each market type (spot, perpetuals, physical futures, options) available on the exchange for CMC integration.</p>
+<h3 id='request'>Request</h3>
+<p>No field is required in the request payload.</p>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">Ticker</span><span class="dl">"</span><span class="p">,</span> <span class="p">{});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/Ticker</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+
+</code></pre></div><h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="dl">"</span><span class="s2">BTC_USD</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">base_id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">quote_id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">last_price</span><span class="dl">"</span><span class="p">:</span> <span class="mi">29000</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">base_volume</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.2220000000000000000000000000</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">quote_volume</span><span class="dl">"</span><span class="p">:</span> <span class="mf">6425.0000000000000000000000000</span>
+    <span class="p">},</span>
+    <span class="dl">"</span><span class="s2">ETH_USD</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">base_id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1027</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">quote_id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">last_price</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1970</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">base_volume</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.000</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">quote_volume</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.000</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">{
+    "BTC_USD": {
+        "base_id": 1,
+        "quote_id": 0,
+        "last_price": 29000,
+        "base_volume": 0.2220000000000000000000000000,
+        "quote_volume": 6425.0000000000000000000000000
+    },
+    "ETH_USD": {
+        "base_id": 1027,
+        "quote_id": 0,
+        "last_price": 1970,
+        "base_volume": 0.000,
+        "quote_volume": 0.000
+    }
+}
+</span></code></pre></div>
+<p>Returns a JSON object, each field in the object represents an instrument in the exchange. Each field in the object has their properties and are labeled as to what they mean.</p>

@@ -1,0 +1,152 @@
+<h2 id='scheduletreasuryactivityreport'>ScheduleTreasuryActivityReport</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Operator, Trading<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Initiates the generation of an series of treasury Activity reports for the specified accounts over a regular periodic time interval.</p>
+
+<p>A user with Trading permission can only schedule generation of treasury reports for accounts with which he/she is associated to; a user with Operator permission can schedule generation of treasury reports for any account.</p>
+
+<p>The actual treasury Activity Report will be generated as a comma-separated (CSV) file according to the interval, if interval set is daily, a treasury report will be generated daily unless cancelled using the API <a href="https://23harolds.github.io/slatedoc/#cancelreport"><strong>CancelReport</strong></a>. It can be downloaded using the API call <a href="https://23harolds.github.io/slatedoc/#downloaddocument"><strong>DownloadDocument</strong></a></p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">ScheduleTreasuryActivityReport</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">beginTime</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2023-03-30T16:00:00.000Z</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">Frequency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Weekly</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">accountIdList</span><span class="p">:</span> <span class="p">[</span><span class="mi">185</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/ScheduleTreasuryActivityReport</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">2bf2e45b-42aa-4448-9d6f-bb0a8fd020e4 //valid sessiontoken</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">142</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"beginTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-30T16:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Weekly"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountIdList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">185</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>frequency</td>
+<td><strong>integer.</strong> How often the report will run and a treasury report get generated. One of the following:<br />0 OnDemand<br />1 Hourly<br />2 Daily<br />3 Weekly<br />4 Monthly<br />5 Annually. If not defined, the default is <strong>Hourly</strong>.<em>optional.</em></td>
+</tr>
+<tr>
+<td>accountIdList</td>
+<td><strong>integer array.</strong> Comma-separated integers; each element an account ID on the Order Management System whose treasury activity will be reported on. All accounts must be from the same OMS.<em>required.</em></td>
+</tr>
+<tr>
+<td>omsId</td>
+<td><strong>integer.</strong> The ID of the Order Management System on which the accounts named in the list reside.<em>required.</em></td>
+</tr>
+<tr>
+<td>beginTime</td>
+<td><strong>string.</strong> The time at which the periodic reports begin; the day and time when you want reporting to start, in Microsoft Ticks format.<em>required.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="c1">//Actual response</span>
+<span class="p">{</span>
+    <span class="dl">"</span><span class="s2">RequestingUser</span><span class="dl">"</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">OMSId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">reportFlavor</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Treasury</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">createTime</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2023-03-29T16:19:49.606Z</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">initialRunTime</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2023-03-30T16:00:00.000Z</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">intervalStartTime</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2023-03-30T16:00:00.000Z</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">intervalEndTime</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2023-04-06T16:00:00.000Z</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">RequestStatus</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Submitted</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">ReportFrequency</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Weekly</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">intervalDuration</span><span class="dl">"</span><span class="p">:</span> <span class="mi">6048000000000</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">RequestId</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">36622dd9-55bd-4e3c-90ab-93385c752695</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">lastInstanceId</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">00000000-0000-0000-0000-000000000000</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">accountIds</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="mi">9</span><span class="p">,</span>
+        <span class="mi">185</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">{
+    "RequestingUser": 6,
+    "OMSId": 1,
+    "reportFlavor": "Treasury",
+    "createTime": "2023-03-29T16:19:49.606Z",
+    "initialRunTime": "2023-03-30T16:00:00.000Z",
+    "intervalStartTime": "2023-03-30T16:00:00.000Z",
+    "intervalEndTime": "2023-04-06T16:00:00.000Z",
+    "RequestStatus": "Submitted",
+    "ReportFrequency": "Weekly",
+    "intervalDuration": 6048000000000,
+    "RequestId": "36622dd9-55bd-4e3c-90ab-93385c752695",
+    "lastInstanceId": "00000000-0000-0000-0000-000000000000",
+    "accountIds": [
+        9,
+        185
+    ]
+}
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>RequestingUser</td>
+<td><strong>integer.</strong> The User ID of the person requesting the treasury activity report. This confirms the ID of the authenticated user who made the request by returning it as part of the response.</td>
+</tr>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System on which the treasury activity report will be run.</td>
+</tr>
+<tr>
+<td>reportFlavor</td>
+<td><strong>string.</strong> The type of report to be generated. In the case of ScheduleTreasuryActivityReport, report flavor will always be <strong>Treasury</strong></td>
+</tr>
+<tr>
+<td>createTime</td>
+<td><strong>string.</strong> The time and date on which the request for the treasury activity report was made, in Microsoft Ticks format.</td>
+</tr>
+<tr>
+<td>initialRunTime</td>
+<td><strong>string.</strong> The time and date at which the treasury activity report was first run, in Microsoft Ticks format.</td>
+</tr>
+<tr>
+<td>intervalStartTime</td>
+<td><strong>string.</strong> The start of the period that the report will cover, in Microsoft Ticks format.</td>
+</tr>
+<tr>
+<td>intervalEndTime</td>
+<td><strong>string.</strong> The end of the period that the report will cover, in Microsoft Ticks format.</td>
+</tr>
+<tr>
+<td>RequestStatus</td>
+<td><strong>enumerated string.</strong> The status of the request for the treasury activity report. Each request returns one of:<br />Submitted<br />Validating<br />Scheduled<br />InProgress<br />Completed<br />Aborting<br />Aborted<br />UserCancelled<br />SysRetired<br />UserCancelledPending</td>
+</tr>
+<tr>
+<td>ReportFrequency</td>
+<td><strong>enumerated string.</strong> When the report runs:<br />OnDemand<br />Hourly<br />Daily<br />Weekly<br />Monthly<br />Annually</td>
+</tr>
+<tr>
+<td>intervalDuration</td>
+<td><strong>long integer.</strong> The period that the report covers relative to the run date, in POSIX format. The call specifies a start time and an <em>intervalDuration</em>.<br /><br />In scheduled a scheduled report, the interval duration depends on the frequency, if the frequency is <strong>Weekly</strong>, the interval duration will be 1 weeek.</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td><strong>string.</strong> The ID of the original request. Request IDs are long strings unique within the Order Management System.</td>
+</tr>
+<tr>
+<td>lastInstanceId</td>
+<td><strong>string.</strong> For scheduled reports, the report ID of the most recent previously run report.</td>
+</tr>
+<tr>
+<td>accountIds</td>
+<td><strong>integer array.</strong> A comma-delimited array of account IDs whose treasury activities are reported in the treasury activity report.</td>
+</tr>
+</tbody></table>

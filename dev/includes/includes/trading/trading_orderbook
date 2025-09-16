@@ -1,0 +1,154 @@
+<h2 id='orderbook'>OrderBook</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Public<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>The OrderBook endpoint is to provide a complete level 2 order book (arranged by best asks/bids) with full depth returned for a given market pair for CMC integration. Parameters can also be supplied in the request payload.</p>
+<h3 id='request'>Request</h3>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Market_Pair</td>
+<td>The instrument symbol, instrument id is not accepted. <em>required</em></td>
+</tr>
+<tr>
+<td>Depth</td>
+<td>Depth of the orderbook you want to see, this only applicable if <strong>Level</strong> parameter is set to 2. Depth will always be 1 if this is not set or if Level is set to 1.<em>optional</em></td>
+</tr>
+<tr>
+<td>Level</td>
+<td>Either 1 or 2. 1 mean you only want to see the best bid and best ask, 2 means you want to see other levels of the book, number of bids and ask you will see depends on the <strong>Depth</strong> set, if <strong>Depth</strong> is not set and <strong>Level</strong> is set to 2, best bid and best ask will only be the ones to be returned.If <strong>Level</strong> is not set, default is 1.<em>optional</em></td>
+</tr>
+</tbody></table>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="c1">//No need to set Depth if Level is set to 1</span>
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">OrderBook</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">Market_Pair</span><span class="p">:</span> <span class="dl">"</span><span class="s2">BTCUSD</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">Level</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="c1">//Level 2, you need to set Depth to a number higher than 1 else you will only see best bid and best ask</span>
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">OrderBook</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">Market_Pair</span><span class="p">:</span> <span class="dl">"</span><span class="s2">BTCUSD</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">Depth</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="na">Level</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/OrderBook</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">52</span>
+
+<span class="err">//No</span><span class="w"> </span><span class="err">need</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">set</span><span class="w"> </span><span class="err">Depth</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">Level</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">set</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Market_Pair"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTCUSD"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Level"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">////Level</span><span class="w"> </span><span class="mi">2</span><span class="err">,</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">need</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">set</span><span class="w"> </span><span class="err">Depth</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">number</span><span class="w"> </span><span class="err">higher</span><span class="w"> </span><span class="err">than</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="err">else</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">will</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">see</span><span class="w"> </span><span class="err">best</span><span class="w"> </span><span class="err">bid</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">best</span><span class="w"> </span><span class="err">ask</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="err">Market_Pair:</span><span class="w"> </span><span class="s2">"BTCUSD"</span><span class="p">,</span><span class="w">
+</span><span class="err">Depth:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+</span><span class="err">Level:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="c1">//Level 1</span>
+<span class="p">{</span>
+    <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1679548364728</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">bids</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="mi">2</span><span class="p">,</span> <span class="c1">//Quantity</span>
+            <span class="mi">28900</span> <span class="c1">//Price</span>
+        <span class="p">]</span>
+    <span class="p">],</span>
+    <span class="dl">"</span><span class="s2">asks</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="mf">0.5</span><span class="p">,</span> <span class="c1">//Quantity</span>
+            <span class="mi">29000</span> <span class="c1">//Price</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">//level 2, Depth 10, only 2 bids existing, only 1 ask existing</span>
+<span class="p">{</span>
+    <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1679548299447</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">bids</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="mi">2</span><span class="p">,</span> <span class="c1">//Quantity</span>
+            <span class="mi">28900</span> <span class="c1">//Price</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="mi">1</span><span class="p">,</span>
+            <span class="mi">28700</span>
+        <span class="p">]</span>
+    <span class="p">],</span>
+    <span class="dl">"</span><span class="s2">asks</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="mf">0.5</span><span class="p">,</span>
+            <span class="mi">29000</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">//Level 1
+{
+    "timestamp": 1679548364728,
+    "bids": [
+        [
+            2, //Quantity
+            28900 //Price
+        ]
+    ],
+    "asks": [
+        [
+            0.5,
+            29000
+        ]
+    ]
+}
+
+//level 2, Depth 10, only 2 bids existing, only 1 ask existing
+{
+    "timestamp": 1679548299447,
+    "bids": [
+        [
+            2, //Quantity
+            28900 //Price
+        ],
+        [
+            1,
+            28700
+        ]
+    ],
+    "asks": [
+        [
+            0.5,
+            29000
+        ]
+    ]
+}
+</span></code></pre></div>
+<p>Returns a JSON object with fields timestamp, bids and asks.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>timestamp</td>
+<td>Unix timestamp in milliseconds, equivalent to the current timestamp when the response was returned.</td>
+</tr>
+<tr>
+<td>bids</td>
+<td>The quantity and price per level which someone is willing to buy.</td>
+</tr>
+<tr>
+<td>asks</td>
+<td>The quantity and price per level which someone is willing sell.</td>
+</tr>
+</tbody></table>

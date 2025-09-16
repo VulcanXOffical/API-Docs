@@ -1,0 +1,181 @@
+<h2 id='getoms'>GetOMS</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Operator<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Retrieves details for a logical OMS.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetOMS</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetOMS</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">d0d93fa5-e899-45a4-b08e-b539ec597796</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">14</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer</strong>. The ID of the Order Management System that you wish to retrieve details for.<em>required.</em></td>
+</tr>
+<tr>
+<td>_</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">OwnerId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">OMSName</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AlphapointUniversity</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">InstanceGUID</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">AssetManagerCoreId</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">AssetManagerCoreUser</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">AssetManagerCorePassword</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">AssetManagerId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">OMSRiskMode</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Unknown</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">SystemMarginEnabled</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">PermissionedMarketData</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">PermissionedInstrument</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">PermissionedProduct</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">FeeAccountId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">DepositContraAccountId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">LendingAccountId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">VenueTimeZone</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Dateline Standard Time</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">BaseNotionalProductSymbol</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">USD</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">OmsVersion</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">4.3.65.1063</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">StandardAccountId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">TradeSettlementAccountId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">LendingInterestAccountId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">{
+    "Id": 1,
+    "OwnerId": 0,
+    "OMSName": "AlphapointUniversity",
+    "InstanceGUID": "",
+    "AssetManagerCoreId": "",
+    "AssetManagerCoreUser": "",
+    "AssetManagerCorePassword": "",
+    "AssetManagerId": 1,
+    "OMSRiskMode": "Unknown",
+    "SystemMarginEnabled": false,
+    "PermissionedMarketData": false,
+    "PermissionedInstrument": false,
+    "PermissionedProduct": false,
+    "FeeAccountId": 2,
+    "DepositContraAccountId": 3,
+    "LendingAccountId": 0,
+    "VenueTimeZone": "Dateline Standard Time",
+    "BaseNotionalProductSymbol": "USD",
+    "OmsVersion": "4.3.65.1063",
+    "StandardAccountId": 0,
+    "TradeSettlementAccountId": 0,
+    "LendingInterestAccountId": 0
+}
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Id</td>
+<td><strong>integer.</strong> The numerical ID of the Order Management System.</td>
+</tr>
+<tr>
+<td>OwnerId</td>
+<td><strong>integer.</strong> The identifier assigned to the creator of the OMS.</td>
+</tr>
+<tr>
+<td>OMSName</td>
+<td><strong>string.</strong> The name of the Order Management System.</td>
+</tr>
+<tr>
+<td>InstanceGUID</td>
+<td><strong>integer.</strong> A unique identifier for a particular instance of the Alphapoint trading system</td>
+</tr>
+<tr>
+<td>AssetManagerCoreId</td>
+<td><strong>integer.</strong> The identifier of the core asset management system used to manage the assets traded on the platform.</td>
+</tr>
+<tr>
+<td>AssetManagerCoreUser</td>
+<td><strong>integer.</strong> The user of the core asset management system used to manage the assets traded on the platform.</td>
+</tr>
+<tr>
+<td>AssetManagerCorePassword</td>
+<td><strong>string.</strong> The password of the core asset management system user.</td>
+</tr>
+<tr>
+<td>AssetManagerId</td>
+<td><strong>integer.</strong> The numerical id of the Asset Manager.</td>
+</tr>
+<tr>
+<td>OMSRiskMode</td>
+<td><strong>integer.</strong> The risk mode of the OMS, which can be used to set different risk limits for different trading scenarios.</td>
+</tr>
+<tr>
+<td>SystemMarginEnabled</td>
+<td><strong>boolean.</strong> A flag that indicates whether or not margin trading is enabled for the OMS.</td>
+</tr>
+<tr>
+<td>PermissionedMarketData</td>
+<td><strong>boolean.</strong>   This specifies the level of market data access that is allowed for the OMS.</td>
+</tr>
+<tr>
+<td>PermissionedInstrument</td>
+<td><strong>boolean.</strong> This specifies the level of access that is allowed for the OMS with respect to the instruments that it can trade.</td>
+</tr>
+<tr>
+<td>PermissionedProduct</td>
+<td><strong>boolean.</strong> This specifies the level of access that is allowed for the OMS with respect to the products that it can trade.</td>
+</tr>
+<tr>
+<td>FeeAccountId</td>
+<td><strong>integer.</strong> The ID of the account that is used to collect fees associated with trading on the OMS.</td>
+</tr>
+<tr>
+<td>DepositContraAccountId</td>
+<td><strong>integer.</strong> the id of the account used to receive deposits from clients who wish to trade on the platform.</td>
+</tr>
+<tr>
+<td>LendingAccountId</td>
+<td><strong>integer.</strong> The ID of the account that is used for lending activities associated with the OMS.</td>
+</tr>
+<tr>
+<td>VenueTimeZone</td>
+<td><strong>string.</strong> The time zone in which the trading venue is located.</td>
+</tr>
+<tr>
+<td>BaseNotionalProductSymbol</td>
+<td><strong>string.</strong>  The symbol of the base notional product that is set on the OMS. An example would be USD.</td>
+</tr>
+<tr>
+<td>OmsVersion</td>
+<td><strong>int.</strong>  The current version of the Order Management System.</td>
+</tr>
+<tr>
+<td>StandardAccountId</td>
+<td><strong>integer.</strong> The identifier of the specific trading account that is used for standard trading activities on the platform.</td>
+</tr>
+<tr>
+<td>TradeSettlementAccountId</td>
+<td><strong>integer.</strong>  the account that is used for settlement of trades executed on the platform.</td>
+</tr>
+<tr>
+<td>LendingInterestAccountId</td>
+<td><strong>integer.</strong> The account that is used for managing the interest payments associated with lending activities.</td>
+</tr>
+</tbody></table>

@@ -1,0 +1,145 @@
+<h2 id='getlasttrades'>GetLastTrades</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Public, Trading<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Gets the trades that happened for a specific instrument, parameter <strong>Count</strong> can be set to limit the results.</p>
+<h3 id='request'>Request</h3>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>InstrumentId</td>
+<td>The id of the instrument, symbol is not accepted.If you don&#39;t specify this, response will have the current timestamp which is not valid.<em>required</em></td>
+</tr>
+<tr>
+<td>OMSId</td>
+<td>ID of the OMS where the pair or instrument is being traded.<em>required</em></td>
+</tr>
+<tr>
+<td>Count</td>
+<td>Value represents the number of trades you want to get, value of 10 will return 10 most recent trades. If not set, all trades for the instrument will be included in the results.<em>optional</em></td>
+</tr>
+</tbody></table>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="c1">//Get all trades for instrument id 1</span>
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetLastTrades</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">InstrumentId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="c1">//Get the 10 most recent trades for instrumentid 1</span>
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetLastTrades</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">InstrumentId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">Count</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetLastTrades</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">48</span>
+
+<span class="err">//Get</span><span class="w"> </span><span class="err">all</span><span class="w"> </span><span class="err">trades</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">instrument</span><span class="w"> </span><span class="err">id</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"InstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">//Get</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="err">most</span><span class="w"> </span><span class="err">recent</span><span class="w"> </span><span class="err">trades</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">instrumentid</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"InstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Count"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='response'>Response</h3>
+<p>The response returns an object with multiple arrays, each array represents 1 trade.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0</td>
+<td><strong>integer.</strong> .</td>
+</tr>
+<tr>
+<td>1 (ProductPairCode)</td>
+<td><strong>integer.</strong> <em>ProductPairCode</em> is the same number and used for the same purpose as <em>InstrumentID</em>. The two are completely equivalent in value. InstrumentId 47 = ProductPairCode 47.</td>
+</tr>
+<tr>
+<td>2 (Quantity)</td>
+<td><strong>real.</strong> The quantity of the instrument traded.</td>
+</tr>
+<tr>
+<td>3 (Price)</td>
+<td><strong>real.</strong> The price at which the instrument traded.</td>
+</tr>
+<tr>
+<td>4 (Order1)</td>
+<td><strong>integer.</strong> The ID of the first order that resulted in the trade, either Buy or Sell.</td>
+</tr>
+<tr>
+<td>5 (Order2)</td>
+<td><strong>integer.</strong> The ID of the second order that resulted in the trade, either Buy or Sell.</td>
+</tr>
+<tr>
+<td>6 (Tradetime)</td>
+<td><strong>long integer.</strong> UTC trade time in Total Milliseconds. POSIX format.</td>
+</tr>
+<tr>
+<td>7 (Direction)</td>
+<td><strong>integer.</strong> Effect of the trade on the instrument’s market price. One of:<br />0 NoChange<br />1 UpTick<br />2 DownTick</td>
+</tr>
+<tr>
+<td>8 (TakerSide)</td>
+<td><strong>integer.</strong> Which side of the trade took liquidity? One of:<br />0 Buy<br />1 Sell<br /><br />The maker side of the trade provides liquidity by placing the order on the book (this can be a buy or a sell order). The other, taker, side takes the liquidity. It, too, can be buy-side or sell-side.</td>
+</tr>
+<tr>
+<td>9 (BlockTrade)</td>
+<td><strong>Boolean.</strong> Was this a privately negotiated trade that was reported to the OMS? A private trade returns 1 (<em>true</em>); otherwise 0 (<em>false</em>). Default is <em>false</em>. Block trades are not supported in exchange version 3.1</td>
+</tr>
+<tr>
+<td>10 (order1ClientId or order2ClientId)</td>
+<td><strong>integer.</strong> The client-supplied order ID for the trade. Internal logic determines whether the program reports the <em>order1ClientId</em> or the <em>order2ClientId</em>.</td>
+</tr>
+</tbody></table>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+  <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mi">1970</span><span class="p">,</span> <span class="mi">5922</span><span class="p">,</span> <span class="mi">5923</span><span class="p">,</span> <span class="mi">1675332676849</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+  <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">,</span> <span class="mi">1970</span><span class="p">,</span> <span class="mi">5922</span><span class="p">,</span> <span class="mi">6012</span><span class="p">,</span> <span class="mi">1676397856371</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="p">];</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">[
+    [
+        14,
+        2,
+        0.02,
+        1970,
+        5922,
+        5923,
+        1675332676849,
+        1,
+        0,
+        0,
+        0
+    ],
+    [
+        15,
+        2,
+        0.98,
+        1970,
+        5922,
+        6012,
+        1676397856371,
+        0,
+        0,
+        0,
+        0
+    ]
+]
+</span></code></pre></div>

@@ -1,0 +1,47 @@
+<h2 id='getuseraffiliatecount'>GetUserAffiliateCount</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Operator,Trading<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Gets a count of users that were referred by a user.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetUserAffiliateCount</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">UserId</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetUserAffiliateCount</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">e6567bb5-0245-4cb3-b99e-b3adebe9c94c //valid session token</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">38</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"UserId"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the OMS where the user belongs to.<em>required.</em></td>
+</tr>
+<tr>
+<td>UserId</td>
+<td><strong>integer.</strong> The ID of the user for which to get number of affiliates.<em>required.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Count</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">{
+    "Count": 0
+}
+</span></code></pre></div>
+<p>Returns to total count or number of users referred by a specific user.</p>

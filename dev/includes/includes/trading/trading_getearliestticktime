@@ -1,0 +1,59 @@
+<h2 id='getearliestticktime'>GetEarliestTickTime</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Level1MarketData, Operator<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Gets the earliest ticker time possible for a specific instrument or market pair.</p>
+<h3 id='request'>Request</h3>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>InstrumentId</td>
+<td>The id of the instrument, symbol is not accepted.If you don&#39;t specify this, response will have the current timestamp which is not valid.<em>required</em></td>
+</tr>
+<tr>
+<td>OMSId</td>
+<td>ID of the OMS where the pair or instrument is being traded.<em>required</em></td>
+</tr>
+</tbody></table>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetEarliestTickTime</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">InstrumentId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetEarliestTickTime</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here..</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">239260f0-dd79-439b-85e2-a5a24fcd9158 //valid session token, can be acquired during HTTP authentication</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">54</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"InstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='response'>Response</h3>
+<p>The response returns an array with one element.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nokey</td>
+<td>Unix timestamp in milliseconds, equivalent to the timestamp when the instrument was traded for the first time in the exchange</td>
+</tr>
+</tbody></table>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">[</span><span class="mi">1651148820000</span><span class="p">];</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">[
+    1651148820000
+]
+</span></code></pre></div>

@@ -1,0 +1,269 @@
+<h2 id='getorderstatus'>GetOrderStatus</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Operator, Trading<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Retrieves the status information for a single order.</p>
+
+<p>A user with Trading permission can retrieve status information for accounts and orders with which the user is associated; a user with Operator permission can retreive status information for any account or order ID.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetOrderStatus</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">AccountId</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+  <span class="na">OrderId</span><span class="p">:</span> <span class="mi">6562</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetOrderStatus</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">f7e2c811-a9db-454e-9c9e-77533baf92d9 //valid session token</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">63</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"OrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">6562</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>Integer.</strong> The ID of the Order Management System on which the order was placed.<em>optional.</em></td>
+</tr>
+<tr>
+<td>AccountId</td>
+<td><strong>integer.</strong> The ID of the account under which the order was placed.<em>required.</em></td>
+</tr>
+<tr>
+<td>OrderId</td>
+<td><strong>integer.</strong> The ID of the order whose status will be returned.If not provided, the most recent order of the account will be returned.<em>conditionally optional.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">Side</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Buy</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">OrderId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">6562</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">Price</span><span class="dl">"</span><span class="p">:</span> <span class="mf">23436.0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">Quantity</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">DisplayQuantity</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">Instrument</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">Account</span><span class="dl">"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">AccountName</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">harolds</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">OrderType</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Limit</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">ClientOrderId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">OrderState</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Working</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">ReceiveTime</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1680020672485</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">ReceiveTimeTicks</span><span class="dl">"</span><span class="p">:</span> <span class="mi">638156174724846502</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">LastUpdatedTime</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1680020672485</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">LastUpdatedTimeTicks</span><span class="dl">"</span><span class="p">:</span> <span class="mi">638156174724852936</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">OrigQuantity</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">QuantityExecuted</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">GrossValueExecuted</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">ExecutableValue</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">AvgPrice</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">CounterPartyId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">ChangeReason</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">NewInputAccepted</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">OrigOrderId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">6562</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">OrigClOrdId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">EnteredBy</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">UserName</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">IsQuote</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">InsideAsk</span><span class="dl">"</span><span class="p">:</span> <span class="mf">29000.0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">InsideAskSize</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.52</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">InsideBid</span><span class="dl">"</span><span class="p">:</span> <span class="mf">23436.0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">InsideBidSize</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">LastTradePrice</span><span class="dl">"</span><span class="p">:</span> <span class="mf">29000.0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">RejectReason</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">IsLockedIn</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">CancelReason</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">OrderFlag</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AddedToBook</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">UseMargin</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">StopPrice</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">PegPriceType</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Ask</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">PegOffset</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">PegLimitOffset</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">IpAddress</span><span class="dl">"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">IPv6a</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">IPv6b</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">ClientOrderIdUuid</span><span class="dl">"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">OMSId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">{
+    "Side": "Buy",
+    "OrderId": 6562,
+    "Price": 23436.000000000000000000000000,
+    "Quantity": 0.0200000000000000000000000000,
+    "DisplayQuantity": 0.0000000000000000000000000000,
+    "Instrument": 1,
+    "Account": 7,
+    "AccountName": "harolds",
+    "OrderType": "Limit",
+    "ClientOrderId": 0,
+    "OrderState": "Working",
+    "ReceiveTime": 1680020672485,
+    "ReceiveTimeTicks": 638156174724846502,
+    "LastUpdatedTime": 1680020672485,
+    "LastUpdatedTimeTicks": 638156174724852936,
+    "OrigQuantity": 0.0200000000000000000000000000,
+    "QuantityExecuted": 0.0000000000000000000000000000,
+    "GrossValueExecuted": 0.0000000000000000000000000000,
+    "ExecutableValue": 0.0000000000000000000000000000,
+    "AvgPrice": 0.0000000000000000000000000000,
+    "CounterPartyId": 0,
+    "ChangeReason": "NewInputAccepted",
+    "OrigOrderId": 6562,
+    "OrigClOrdId": 0,
+    "EnteredBy": 0,
+    "UserName": "",
+    "IsQuote": false,
+    "InsideAsk": 29000.000000000000000000000000,
+    "InsideAskSize": 0.5200000000000000000000000000,
+    "InsideBid": 23436.000000000000000000000000,
+    "InsideBidSize": 0.0000000000000000000000000000,
+    "LastTradePrice": 29000.000000000000000000000000,
+    "RejectReason": "",
+    "IsLockedIn": false,
+    "CancelReason": "",
+    "OrderFlag": "AddedToBook",
+    "UseMargin": false,
+    "StopPrice": 0.0000000000000000000000000000,
+    "PegPriceType": "Ask",
+    "PegOffset": 0.0000000000000000000000000000,
+    "PegLimitOffset": 0.0000000000000000000000000000,
+    "IpAddress": null,
+    "IPv6a": 0,
+    "IPv6b": 0,
+    "ClientOrderIdUuid": null,
+    "OMSId": 1
+}
+</span></code></pre></div>
+<p>The call <strong>GetOrderStatus</strong> returns a JSON object which contains the data of a specific order.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Side</td>
+<td><strong>string.</strong> The side of a trade. One of:<br /><strong>0</strong> Buy<br /><strong>1</strong> Sell<br /><strong>2</strong> Short<br /><strong>3</strong> Unknown (an error condition)</td>
+</tr>
+<tr>
+<td>OrderId</td>
+<td><strong>long integer.</strong> The ID of the open order. The <em>OrderID</em> is unique in each Order Management System.</td>
+</tr>
+<tr>
+<td>Price</td>
+<td><strong>real.</strong> The price at which the buy or sell has been ordered.</td>
+</tr>
+<tr>
+<td>Quantity</td>
+<td><strong>real.</strong> The quantity of the product to be bought or sold.</td>
+</tr>
+<tr>
+<td>DisplayQuantity</td>
+<td><strong>real.</strong> The quantity available to buy or sell that is publicly displayed to the market. To display a <em>displayQuantity</em> value, an order must be a Limit order with a reserve.</td>
+</tr>
+<tr>
+<td>Instrument</td>
+<td><strong>integer.</strong> ID of the instrument being traded. The call <strong>GetInstruments</strong> can supply the instrument IDs that are available.</td>
+</tr>
+<tr>
+<td>orderType</td>
+<td><strong>string.</strong> Describes the type of order this is. One of:<br /><strong>0</strong> Unknown (an error condition)<br /><strong>1</strong> Market order<br /><strong>2</strong> Limit<br /><strong>3</strong> StopMarket<br /><strong>4</strong> StopLimit<br /><strong>5</strong> TrailingStopMarket<br /><strong>6</strong> TrailingStopLimit<br /><strong>7</strong> BlockTrade</td>
+</tr>
+<tr>
+<td>ClientOrderId</td>
+<td><strong>long integer.</strong> An ID supplied by the client to identify the order (like a purchase order number). The <em>ClientOrderId</em> defaults to 0 if not supplied.</td>
+</tr>
+<tr>
+<td>OrderState</td>
+<td><strong>string.</strong> The current state of the order. One of:<br /><strong>0</strong> Unknown<br /><strong>1</strong> Working<br /><strong>2</strong> Rejected<br /><strong>3</strong> Canceled<br /><strong>4</strong> Expired<br /><strong>5</strong> Fully Executed.</td>
+</tr>
+<tr>
+<td>ReceiveTime</td>
+<td><strong>long integer.</strong> Time stamp of the order in POSIX format x 1000 (milliseconds since 1/1/1970 in UTC time zone).</td>
+</tr>
+<tr>
+<td>ReceiveTimeTicks</td>
+<td><strong>long integer.</strong> Time stamp of the order Microsoft Ticks format and UTC time zone. <strong>Note:</strong> Microsoft Ticks format is usually provided as a string. Here it is provided as a long integer.</td>
+</tr>
+<tr>
+<td>OrigQuantity</td>
+<td><strong>real.</strong> If the open order has been changed or partially filled, this value shows the original quantity of the order.</td>
+</tr>
+<tr>
+<td>QuantityExecuted</td>
+<td><strong>real.</strong> If the open order has been at least partially executed, this value shows the amount that has been executed.</td>
+</tr>
+<tr>
+<td>AvgPrice</td>
+<td><strong>real.</strong> The average executed price for the instrument in the order.</td>
+</tr>
+<tr>
+<td>CounterPartyId</td>
+<td><strong>integer.</strong> The ID of the other party in an off-market trade.</td>
+</tr>
+<tr>
+<td>ChangeReason</td>
+<td><strong>string.</strong> If the order has been changed, this string value holds the reason. One of:<br /><strong>0</strong> Unknown<br /><strong>1</strong> NewInputAccepted<br /><strong>2</strong> NewInputRejected<br /><strong>3</strong> OtherRejected<br /><strong>4</strong> Expired<br /><strong>5</strong> Trade<br /><strong>6</strong> SystemCanceled_NoMoreMarket<br /><strong>7</strong> SystemCanceled_BelowMinimum<br /><strong>8</strong> SystemCanceled_PriceCollar<br /><strong>9</strong> SystemCanceled_MarginFailed<br /><strong>100</strong> UserModified</td>
+</tr>
+<tr>
+<td>OrigOrderId</td>
+<td><strong>integer.</strong> If the order has been changed, this is the ID of the original order.</td>
+</tr>
+<tr>
+<td>OrigClOrdId</td>
+<td><strong>integer.</strong> If the order has been changed, this is the ID of the original client order ID.</td>
+</tr>
+<tr>
+<td>EnteredBy</td>
+<td><strong>integer.</strong> The user ID of the person who entered the order.</td>
+</tr>
+<tr>
+<td>IsQuote</td>
+<td><strong>Boolean.</strong> If this order is a quote, the value for <em>IsQuote</em> is <em>true,</em> else <em>false.</em></td>
+</tr>
+<tr>
+<td>InsideAsk</td>
+<td><strong>real.</strong> If this order is a quote, this value is the Inside Ask price.</td>
+</tr>
+<tr>
+<td>InsideAskSize</td>
+<td><strong>real.</strong> If this order is a quote, this value is the quantity of the Inside Ask quote.</td>
+</tr>
+<tr>
+<td>InsideBid</td>
+<td><strong>real.</strong> If this order is a quote, this value is the Inside Bid price.</td>
+</tr>
+<tr>
+<td>InsideBidSize</td>
+<td><strong>real.</strong> If this order is a quote, this value is the quantity of the Inside Bid quote.</td>
+</tr>
+<tr>
+<td>LastTradePrice</td>
+<td><strong>real.</strong> The last price that this instrument traded at.</td>
+</tr>
+<tr>
+<td>RejectReason</td>
+<td><strong>string.</strong> If this open order has been rejected, this string holds the reason for the rejection.</td>
+</tr>
+<tr>
+<td>IsLockedIn</td>
+<td><strong>Boolean.</strong> For a block trade, if both parties to the block trade agree that one of the parties will report the trade for both sides, this value is <em>true.</em> Othersise, <em>false.</em></td>
+</tr>
+<tr>
+<td>CancelReason</td>
+<td><strong>string.</strong> If this order has been canceled, this string holds the cancelation reason.</td>
+</tr>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System on which the order took place.</td>
+</tr>
+</tbody></table>

@@ -1,0 +1,167 @@
+<h2 id='getaccountwithdrawtransactions'>GetAccountWithdrawTransactions</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Trading, AccountReadOnly<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Gets a list of withdraws for an account.</p>
+
+<p>Users with Trading and AccountReadOnly permission can get withdraw transactions only for the account/s with which they are associated. Users with Operator permission can get withdraw transactions for any account.</p>
+
+<p>The owner of the trading venue determines how long to retain transaction history before archiving.</p>
+
+<aside class="notice"><strong>Note: </strong>Depth in this call is a count of how many withdraw transactions to report. It is not "depth of market."</aside>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetAccountWithdrawTransactions</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">AccountId</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetAccountWithdrawTransactions</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">c5f917b9-f173-4c29-a615-1503d2e78023 //valid sessiontoken</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">41</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System on which the account transactions took place.<em>required.</em></td>
+</tr>
+<tr>
+<td>AccountId</td>
+<td><strong>integer.</strong> The ID of the account whose transactions will be returned.<em>required.</em></td>
+</tr>
+<tr>
+<td>Depth</td>
+<td><strong>integer.</strong> The count of withdraw transactions to be returned.<em>optional.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="na">TransactionId</span><span class="p">:</span> <span class="mi">22693</span><span class="p">,</span>
+    <span class="na">ReferenceId</span><span class="p">:</span> <span class="mi">286</span><span class="p">,</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">AccountId</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="na">CR</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">DR</span><span class="p">:</span> <span class="mf">0.00001</span><span class="p">,</span>
+    <span class="na">Counterparty</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">TransactionType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Other</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ReferenceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Withdraw</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ProductId</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">Balance</span><span class="p">:</span> <span class="mf">1.11033172</span><span class="p">,</span>
+    <span class="na">TimeStamp</span><span class="p">:</span> <span class="mi">1676348233473</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">TransactionId</span><span class="p">:</span> <span class="mi">22671</span><span class="p">,</span>
+    <span class="na">ReferenceId</span><span class="p">:</span> <span class="mi">281</span><span class="p">,</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">AccountId</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="na">CR</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">DR</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="na">Counterparty</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="na">TransactionType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Fee</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ReferenceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Withdraw</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ProductId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">Balance</span><span class="p">:</span> <span class="mf">1020604462.5137057184022</span><span class="p">,</span>
+    <span class="na">TimeStamp</span><span class="p">:</span> <span class="mi">1676346027780</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">];</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">[
+    {
+        "TransactionId": 22693,
+        "ReferenceId": 286,
+        "OMSId": 1,
+        "AccountId": 7,
+        "CR": 0.0000000000000000000000000000,
+        "DR": 0.0000100000000000000000000000,
+        "Counterparty": 3,
+        "TransactionType": "Other",
+        "ReferenceType": "Withdraw",
+        "ProductId": 3,
+        "Balance": 1.1103317200000000000000000000,
+        "TimeStamp": 1676348233473
+    },
+    {
+        "TransactionId": 22671,
+        "ReferenceId": 281,
+        "OMSId": 1,
+        "AccountId": 7,
+        "CR": 0.0000000000000000000000000000,
+        "DR": 1.0000000000000000000000000000,
+        "Counterparty": 2,
+        "TransactionType": "Fee",
+        "ReferenceType": "Withdraw",
+        "ProductId": 1,
+        "Balance": 1020604462.5137057184022000000,
+        "TimeStamp": 1676346027780
+    }
+]
+</span></code></pre></div>
+<p>The response returns an array of objects, each object represents a withdraw transaction.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>TransactionId</td>
+<td><strong>Integer.</strong> The ID of the transaction.</td>
+</tr>
+<tr>
+<td>OMSId</td>
+<td><strong>Integer.</strong> The ID of the Order Management System under which the requested transactions took place.</td>
+</tr>
+<tr>
+<td>AccountId</td>
+<td><strong>Integer.</strong> The single account under which the transactions took place.</td>
+</tr>
+<tr>
+<td>CR</td>
+<td><strong>real.</strong> Credit entry for the account on the order book. Funds entering an account.</td>
+</tr>
+<tr>
+<td>DR</td>
+<td><strong>real.</strong> Debit entry for the account on the order book. Funds leaving an account.</td>
+</tr>
+<tr>
+<td>Counterparty</td>
+<td><strong>long integer.</strong> The corresponding party in a trade.</td>
+</tr>
+<tr>
+<td>TransacitionType</td>
+<td><strong>string.</strong> A withdraw transaction is always <strong>Other</strong> TransactionType.</td>
+</tr>
+<tr>
+<td>ReferenceId</td>
+<td><strong>long integer.</strong> The ID of the action or event that triggered this transaction.</td>
+</tr>
+<tr>
+<td>ReferenceType</td>
+<td><strong>string.</strong> A withdraw transaction is always a <strong>withdraw</strong> ReferenceType</td>
+</tr>
+<tr>
+<td>ProductId</td>
+<td><strong>integer.</strong> The ID of the product in which the withdraw was made. Use <strong>GetProduct</strong> to return information about a product based on its ID.</td>
+</tr>
+<tr>
+<td>Balance</td>
+<td><strong>real.</strong> The balance in the account after the withdraw transaction.</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td><strong>long integer.</strong> Time at which the transaction took place, in POSIX format.</td>
+</tr>
+</tbody></table>

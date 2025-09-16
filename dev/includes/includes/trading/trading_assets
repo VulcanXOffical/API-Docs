@@ -1,0 +1,107 @@
+<h2 id='assets'>Assets</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Public<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>The assets endpoint is to provide a detailed summary for each currency available on the exchange for CMC Integration</p>
+<h3 id='request'>Request</h3>
+<p>No field is required in the request payload.</p>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">Assets</span><span class="dl">"</span><span class="p">,</span> <span class="p">{});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/Assets</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+
+</code></pre></div><h3 id='response'>Response</h3>
+<p>The response returns an array of objects, each object is for a specific asset in the exchange. Each field in the object is labeled as to what it means.</p>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bitcoin</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">unified_cryptoasset_id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">min_withdraw</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TBTC</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">unified_cryptoasset_id</span><span class="p">:</span> <span class="mi">5776</span><span class="p">,</span>
+    <span class="na">min_withdraw</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Ethereum Kovan</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">unified_cryptoasset_id</span><span class="p">:</span> <span class="mi">1027</span><span class="p">,</span>
+    <span class="na">min_withdraw</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Chainlink</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">unified_cryptoasset_id</span><span class="p">:</span> <span class="mi">1975</span><span class="p">,</span>
+    <span class="na">min_withdraw</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ICON</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">unified_cryptoasset_id</span><span class="p">:</span> <span class="mi">2099</span><span class="p">,</span>
+    <span class="na">min_withdraw</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Dogecoin</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">unified_cryptoasset_id</span><span class="p">:</span> <span class="mi">74</span><span class="p">,</span>
+    <span class="na">min_withdraw</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Thai Baht</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">unified_cryptoasset_id</span><span class="p">:</span> <span class="mi">21430</span><span class="p">,</span>
+    <span class="na">min_withdraw</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Tether</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">unified_cryptoasset_id</span><span class="p">:</span> <span class="mi">825</span><span class="p">,</span>
+    <span class="na">min_withdraw</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">USD  Coin</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">unified_cryptoasset_id</span><span class="p">:</span> <span class="mi">3408</span><span class="p">,</span>
+    <span class="na">min_withdraw</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">];</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">[
+    {
+        "name": "Bitcoin",
+        "unified_cryptoasset_id": 1,
+        "min_withdraw": 0.0000000100000000000000000000
+    },
+    {
+        "name": "TBTC",
+        "unified_cryptoasset_id": 5776,
+        "min_withdraw": 0.0000000100000000000000000000
+    },
+    {
+        "name": "Ethereum Kovan",
+        "unified_cryptoasset_id": 1027,
+        "min_withdraw": 0.0000000100000000000000000000
+    },
+    {
+        "name": "Chainlink",
+        "unified_cryptoasset_id": 1975,
+        "min_withdraw": 0.0000000100000000000000000000
+    },
+    {
+        "name": "ICON",
+        "unified_cryptoasset_id": 2099,
+        "min_withdraw": 0.0000000100000000000000000000
+    },
+    {
+        "name": "Dogecoin",
+        "unified_cryptoasset_id": 74,
+        "min_withdraw": 0.0000000100000000000000000000
+    },
+    {
+        "name": "Tether",
+        "unified_cryptoasset_id": 825,
+        "min_withdraw": 0.0000000100000000000000000000
+    },
+    {
+        "name": "USD  Coin",
+        "unified_cryptoasset_id": 3408,
+        "min_withdraw": 0.0000000100000000000000000000
+    }
+]
+</span></code></pre></div>

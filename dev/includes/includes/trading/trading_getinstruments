@@ -1,0 +1,347 @@
+<h2 id='getinstruments'>GetInstruments</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Public<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Retrieves a list of instruments available on the exchange. An instrument is something that can be traded in the exchange.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="c1">//Get all enabled instruments only</span>
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">'</span><span class="s1">GetInstruments</span><span class="dl">'</span><span class="p">,{</span>
+<span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">})</span>
+
+<span class="c1">//Get all instruments including the disabled ones</span>
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">'</span><span class="s1">GetInstruments</span><span class="dl">'</span><span class="p">,{</span>
+<span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="na">InstrumentState</span><span class="p">:</span> <span class="dl">"</span><span class="s2">both</span><span class="dl">"</span>
+<span class="p">})</span>
+
+<span class="c1">//Get all disabled/inactive instruments only</span>
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">'</span><span class="s1">GetInstruments</span><span class="dl">'</span><span class="p">,{</span>
+<span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span>
+<span class="na">InstrumentState</span><span class="p">:</span> <span class="dl">"</span><span class="s2">inactive</span><span class="dl">"</span>
+<span class="p">})</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetInstruments</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">20</span>
+<span class="s">//Get all enabled instruments only</span>
+<span class="s">{</span>
+<span class="s">    "OMSId": 1</span>
+<span class="s">}</span>
+
+<span class="err">//Get</span><span class="w"> </span><span class="err">all</span><span class="w"> </span><span class="err">instruments</span><span class="w"> </span><span class="err">including</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">disabled</span><span class="w"> </span><span class="err">ones</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="nl">"InstrumentState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"both"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">//Get</span><span class="w"> </span><span class="err">all</span><span class="w"> </span><span class="err">disabled/inactive</span><span class="w"> </span><span class="err">instruments</span><span class="w"> </span><span class="err">only</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="nl">"InstrumentState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"inactive"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer</strong>. The ID of the Order Management System on which the instruments are available.<em>required.</em></td>
+</tr>
+<tr>
+<td>InstrumentState</td>
+<td><strong>string</strong>. Filters the results, you can include disabled instruments in the results, or you can just get disabled instruments if you want. If not set, <strong>GetInstruments</strong> will only return <strong>enabled or active</strong> instruments.<em>optional.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">InstrumentId</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="na">Symbol</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ETHUSD</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">Product1</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="na">Product1Symbol</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ETH</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">Product2</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">Product2Symbol</span><span class="p">:</span> <span class="dl">"</span><span class="s2">USD</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">InstrumentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Standard</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">VenueInstrumentId</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="na">VenueId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">SortIndex</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">SessionStatus</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Running</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">PreviousSessionStatus</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Stopped</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">SessionStatusDateTime</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2023-01-23T04:49:21.699Z</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">SelfTradePrevention</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">QuantityIncrement</span><span class="p">:</span> <span class="mf">0.0001</span><span class="p">,</span>
+    <span class="na">PriceIncrement</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">,</span>
+    <span class="na">MinimumQuantity</span><span class="p">:</span> <span class="mf">0.0001</span><span class="p">,</span>
+    <span class="na">MinimumPrice</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">,</span>
+    <span class="na">VenueSymbol</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ETHUSD</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">IsDisable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">MasterDataId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">PriceCollarThreshold</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PriceCollarPercent</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PriceCollarEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">PriceFloorLimit</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PriceFloorLimitEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">PriceCeilingLimit</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PriceCeilingLimitEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">CreateWithMarketRunning</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">AllowOnlyMarketMakerCounterParty</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">PriceCollarIndexDifference</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+    <span class="na">PriceCollarConvertToOtcEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">PriceCollarConvertToOtcClientUserId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">PriceCollarConvertToOtcAccountId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">PriceCollarConvertToOtcThreshold</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">OtcConvertSizeThreshold</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">OtcConvertSizeEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">OtcTradesPublic</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">PriceTier</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">InstrumentId</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">Symbol</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TBTCUSD</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">Product1</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">Product1Symbol</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TBTC</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">Product2</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">Product2Symbol</span><span class="p">:</span> <span class="dl">"</span><span class="s2">USD</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">InstrumentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Standard</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">VenueInstrumentId</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">VenueId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">SortIndex</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">SessionStatus</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Stopped</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">PreviousSessionStatus</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Paused</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">SessionStatusDateTime</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2022-10-25T17:56:32.218Z</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">SelfTradePrevention</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">QuantityIncrement</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">,</span>
+    <span class="na">PriceIncrement</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">,</span>
+    <span class="na">MinimumQuantity</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">,</span>
+    <span class="na">MinimumPrice</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">,</span>
+    <span class="na">VenueSymbol</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TBTCUSD</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">IsDisable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">MasterDataId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">PriceCollarThreshold</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PriceCollarPercent</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PriceCollarEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">PriceFloorLimit</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PriceFloorLimitEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">PriceCeilingLimit</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PriceCeilingLimitEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">CreateWithMarketRunning</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">AllowOnlyMarketMakerCounterParty</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">PriceCollarIndexDifference</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PriceCollarConvertToOtcEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">PriceCollarConvertToOtcClientUserId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">PriceCollarConvertToOtcAccountId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">PriceCollarConvertToOtcThreshold</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">OtcConvertSizeThreshold</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">OtcConvertSizeEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">OtcTradesPublic</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">PriceTier</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">];</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">[
+    {
+        "OMSId": 1,
+        "InstrumentId": 2,
+        "Symbol": "ETHUSD",
+        "Product1": 4,
+        "Product1Symbol": "ETH",
+        "Product2": 1,
+        "Product2Symbol": "USD",
+        "InstrumentType": "Standard",
+        "VenueInstrumentId": 2,
+        "VenueId": 1,
+        "SortIndex": 0,
+        "SessionStatus": "Running",
+        "PreviousSessionStatus": "Stopped",
+        "SessionStatusDateTime": "2023-01-23T04:49:21.699Z",
+        "SelfTradePrevention": true,
+        "QuantityIncrement": 0.0001000000000000000000000000,
+        "PriceIncrement": 0.0000000100000000000000000000,
+        "MinimumQuantity": 0.0001000000000000000000000000,
+        "MinimumPrice": 0.0000000100000000000000000000,
+        "VenueSymbol": "ETHUSD",
+        "IsDisable": false,
+        "MasterDataId": 0,
+        "PriceCollarThreshold": 0.0000000000000000000000000000,
+        "PriceCollarPercent": 0.0000000000000000000000000000,
+        "PriceCollarEnabled": false,
+        "PriceFloorLimit": 0.0000000000000000000000000000,
+        "PriceFloorLimitEnabled": false,
+        "PriceCeilingLimit": 0.0000000000000000000000000000,
+        "PriceCeilingLimitEnabled": false,
+        "CreateWithMarketRunning": true,
+        "AllowOnlyMarketMakerCounterParty": false,
+        "PriceCollarIndexDifference": 10.000000000000000000000000000,
+        "PriceCollarConvertToOtcEnabled": false,
+        "PriceCollarConvertToOtcClientUserId": 0,
+        "PriceCollarConvertToOtcAccountId": 0,
+        "PriceCollarConvertToOtcThreshold": 0.0000000000000000000000000000,
+        "OtcConvertSizeThreshold": 0.0000000000000000000000000000,
+        "OtcConvertSizeEnabled": false,
+        "OtcTradesPublic": true,
+        "PriceTier": 0
+    },
+    {
+        "OMSId": 1,
+        "InstrumentId": 3,
+        "Symbol": "TBTCUSD",
+        "Product1": 3,
+        "Product1Symbol": "TBTC",
+        "Product2": 1,
+        "Product2Symbol": "USD",
+        "InstrumentType": "Standard",
+        "VenueInstrumentId": 3,
+        "VenueId": 1,
+        "SortIndex": 0,
+        "SessionStatus": "Stopped",
+        "PreviousSessionStatus": "Paused",
+        "SessionStatusDateTime": "2022-10-25T17:56:32.218Z",
+        "SelfTradePrevention": true,
+        "QuantityIncrement": 0.0010000000000000000000000000,
+        "PriceIncrement": 0.0010000000000000000000000000,
+        "MinimumQuantity": 0.0010000000000000000000000000,
+        "MinimumPrice": 0.0000000100000000000000000000,
+        "VenueSymbol": "TBTCUSD",
+        "IsDisable": false,
+        "MasterDataId": 0,
+        "PriceCollarThreshold": 0.0000000000000000000000000000,
+        "PriceCollarPercent": 0.0000000000000000000000000000,
+        "PriceCollarEnabled": false,
+        "PriceFloorLimit": 0.0000000000000000000000000000,
+        "PriceFloorLimitEnabled": false,
+        "PriceCeilingLimit": 0.0000000000000000000000000000,
+        "PriceCeilingLimitEnabled": false,
+        "CreateWithMarketRunning": true,
+        "AllowOnlyMarketMakerCounterParty": false,
+        "PriceCollarIndexDifference": 0.0000000000000000000000000000,
+        "PriceCollarConvertToOtcEnabled": false,
+        "PriceCollarConvertToOtcClientUserId": 0,
+        "PriceCollarConvertToOtcAccountId": 0,
+        "PriceCollarConvertToOtcThreshold": 0.0000000000000000000000000000,
+        "OtcConvertSizeThreshold": 0.0000000000000000000000000000,
+        "OtcConvertSizeEnabled": false,
+        "OtcTradesPublic": true,
+        "PriceTier": 0
+    }
+ ]
+</span></code></pre></div>
+<p>The response for <strong>GetInstruments</strong> is an array of objects listing all the instruments available on the Order Management System.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System on which the instrument is traded.</td>
+</tr>
+<tr>
+<td>instrumentId</td>
+<td><strong>integer.</strong> The ID of the instrument.</td>
+</tr>
+<tr>
+<td>Symbol</td>
+<td><strong>string.</strong> Trading symbol of the instrument, for example BTCUSD.</td>
+</tr>
+<tr>
+<td>Product1</td>
+<td><strong>integer.</strong> The ID of the first product comprising the instrument.</td>
+</tr>
+<tr>
+<td>Product1Symbol</td>
+<td><strong>string.</strong> The symbol for Product 1 on the trading venue. For example, BTC.</td>
+</tr>
+<tr>
+<td>Product2</td>
+<td><strong>integer.</strong> The ID of the second product comprising the instrument.</td>
+</tr>
+<tr>
+<td>Product2Symbol</td>
+<td><strong>string.</strong> The symbol for Product 2 on the trading venue. For example, USD.</td>
+</tr>
+<tr>
+<td>InstrumentType</td>
+<td><strong>integer.</strong> A number representing the type of the instrument. All instrument types currently are <em>standard</em>, an exchange of one product for another (or <em>unknown</em>, an error condition), but this may expand to new types in the future.<br />0 Unknown (an error condition)<br />1 Standard</td>
+</tr>
+<tr>
+<td>VenueInstrumentId</td>
+<td><strong>integer</strong> A venue instrument is created at the exchange level as an instrument &quot;template&quot; for adding new instruments to the exchange. This is the ID of the venue instrument behind the instrument being requested.</td>
+</tr>
+<tr>
+<td>VenueId</td>
+<td><strong>integer.</strong> The ID of the trading venue on which the instrument trades.</td>
+</tr>
+<tr>
+<td>SortIndex</td>
+<td><strong>integer.</strong> The numerical position in which to sort the returned list of instruments on a visual display. Since this call returns information about a single instrument, <em>SortIndex</em> should return 0.</td>
+</tr>
+<tr>
+<td>SessionStatus</td>
+<td><strong>string.</strong> or <strong>integer.</strong> Is the market for this instrument currently open and operational? Returns one of:<br />0 Unknown<br />1 Running<br />2 Paused<br />3 Stopped<br />4 Starting</td>
+</tr>
+<tr>
+<td>PreviousSessionStatus</td>
+<td><strong>string.</strong> or <strong>integer.</strong> What was the previous session status for this instrument? One of:<br />0 Unknown<br />1 Running<br />2 Paused<br />3 Stopped<br />4 Starting</td>
+</tr>
+<tr>
+<td>SessionStatusDateTime</td>
+<td><strong>string.</strong> The time and date at which the session status was reported, in Microsoft Ticks format.</td>
+</tr>
+<tr>
+<td>SelfTradePrevention</td>
+<td><strong>Boolean.</strong> An account that is trading with itself still incurs fees. If this instrument prevents an account from trading the instrument with itself, the value returns <em>true</em>; otherwise defaults to <em>false</em>.</td>
+</tr>
+<tr>
+<td>QuantityIncrement</td>
+<td><strong>real.</strong> The smallest tradeable increment of the instrument. For example, for BTCUSD, the quantity increment might be 0.0005, but for ETHUSD, the quantity increment might be 50.</td>
+</tr>
+<tr>
+<td>PriceIncrement</td>
+<td><strong>real.</strong> The amount by which the instrument can rise or fall in the market.</td>
+</tr>
+<tr>
+<td>priceCollarIndexDifference</td>
+<td><strong>decimal.</strong> The percent different from the index price that an order is allowed to execute at. Anything falling outside of the index price +/- (1 + PriceCollarIndexDifference) will be collared</td>
+</tr>
+<tr>
+<td>PriceCollarConvertToOtcEnabled</td>
+<td><strong>bool.</strong> Turns on/off conversion of collared orders to block trades</td>
+</tr>
+<tr>
+<td>PriceCollarConvertToOtcClientUserId</td>
+<td><strong>int.</strong> Internal System UserId to assign the collared otc orders to. Should alwaays be 1 in current implementation (default)</td>
+</tr>
+<tr>
+<td>PriceCollarConvertToOtcAccountId</td>
+<td><strong>int.</strong> Account Id to assign the collared orders to. This will effectively be a liability account that will need to have working block trades managed by operator.</td>
+</tr>
+<tr>
+<td>PriceCollarConvertToOtcThreshold</td>
+<td><strong>decimal.</strong> Threshold of remaining size of order to convert to block trade. If collared order does not have remaining quantity above this threshold the remainder will be cancelled.</td>
+</tr>
+<tr>
+<td>OtcConvertSizeEnabled</td>
+<td><strong>bool.</strong> Turns on/off auto conversion of &#39;large&#39; limit orders converted to block trade orders upon receipt by the matching engine</td>
+</tr>
+<tr>
+<td>OtcConvertSizeThreshold</td>
+<td><strong>decimal.</strong> Threshold to convert limit order quantity to block trade automatically for discovery by block trade market participants</td>
+</tr>
+<tr>
+<td>OtcTradesPublic</td>
+<td><strong>bool</strong> If set to true, OTC trades will affect instrument Level1 data(price, volume), will reflect in the chart.</td>
+</tr>
+<tr>
+<td>PriceTier</td>
+<td><strong>integer.</strong> The price tier the instrument is under.</td>
+</tr>
+</tbody></table>

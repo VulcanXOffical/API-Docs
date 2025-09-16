@@ -1,0 +1,110 @@
+<h2 id='getproduct'>GetProduct</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Public<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Retrieves the details about a specific product on the exchange. A product is an asset that can be deposited and withdrawn but cannot be traded, an instrument is the one that can be traded.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetProduct</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">ProductId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetProduct</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">41</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ProductId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System that includes the product.<em>required.</em></td>
+</tr>
+<tr>
+<td>ProductId</td>
+<td><strong>long integer.</strong> The ID of the product on the specified Order Management System.<em>required.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<p>Returns an object with fields named as to what they mean.</p>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="dl">"</span><span class="s2">OMSId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">ProductId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Product</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">USD</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">ProductFullName</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">US Dollar</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">MasterDataUniqueProductSymbol</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">ProductType</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">NationalCurrency</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">DecimalPlaces</span><span class="dl">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">TickSize</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.0100000000000000000000000000</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">DepositEnabled</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">WithdrawEnabled</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">NoFees</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">IsDisabled</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">MarginEnabled</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">{
+    "OMSId": 1,
+    "ProductId": 1,
+    "Product": "USD",
+    "ProductFullName": "US Dollar",
+    "MasterDataUniqueProductSymbol": "",
+    "ProductType": "NationalCurrency",
+    "DecimalPlaces": 2,
+    "TickSize": 0.0100000000000000000000000000,
+    "DepositEnabled": true,
+    "WithdrawEnabled": true,
+    "NoFees": false,
+    "IsDisabled": false,
+    "MarginEnabled": false
+}
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System that offers the product.</td>
+</tr>
+<tr>
+<td>ProductId</td>
+<td><strong>long integer.</strong> The ID of the product.</td>
+</tr>
+<tr>
+<td>Product</td>
+<td><strong>string.</strong> “Nickname” or shortened name of the product. For example, NZD (New Zealand Dollar).</td>
+</tr>
+<tr>
+<td>ProductFullName</td>
+<td><strong>string.</strong> Full and official name of the product. For example, New Zealand Dollar.</td>
+</tr>
+<tr>
+<td>ProductType</td>
+<td><strong>string.</strong> The nature of the product. One of:<br />0 Unknown (an error condition)<br />1 NationalCurrency<br />2 CryptoCurrency<br />3 Contract</td>
+</tr>
+<tr>
+<td>DecimalPlaces</td>
+<td><strong>integer.</strong> The number of decimal places in which the product is divided. The maximum is 8. For example, US Dollars are divided into 100 units, or 2 decimal places. Other products may be different. Burundi Francs use 0 decimal places and the Rial Omani uses 3.</td>
+</tr>
+<tr>
+<td>TickSize</td>
+<td><strong>real.</strong> The smallest increment in which the product may trade.</td>
+</tr>
+<tr>
+<td>NoFees</td>
+<td><strong>Boolean.</strong> Shows whether trading the product incurs transaction fees. The default is <em>false</em>; that is, if <em>NoFees</em> is <em>false</em>, transaction fees will be incurred. If <em>NoFees</em> is <em>true</em>, no fees are incurred.</td>
+</tr>
+</tbody></table>

@@ -1,0 +1,133 @@
+<h2 id='generatetreasuryactivityreport'>GenerateTreasuryActivityReport</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Operator, Trading<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Initiates the generation of a Treasury Activity report for the specified accounts over a specified time interval.</p>
+
+<p>A user with Trading permission can only generate treasury reports for accounts with which he/she is associated to; a user with Operator permission can generate treasury reports for any account.</p>
+
+<p>The actual Treasury Activity Report will be generated as a comma-separated (CSV) file. It can be downloaded using the API call <a href="https://23harolds.github.io/slatedoc/#downloaddocument"><strong>DownloadDocument</strong></a></p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GenerateTreasuryActivityReport</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">startTime</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2023-03-01T16:00:00.000Z</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">endTime</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2023-03-02T16:00:00.000Z</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">accountIdList</span><span class="p">:</span> <span class="p">[</span><span class="mi">185</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="c1">//1 or more accounts</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GenerateTreasuryActivityReport</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">2bf2e45b-42aa-4448-9d6f-bb0a8fd020e4 //valid sessiontoken</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">142</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"startTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-01T16:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"endTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-02T16:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountIdList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">185</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountIdList</td>
+<td><strong>integer array.</strong> A comma-delimited array of one ore more account IDs, each valid on a single Order Management System for the authenticated user. The account user may not be the only user of the account.<em>required.</em></td>
+</tr>
+<tr>
+<td>omsId</td>
+<td><strong>integer.</strong> The ID of the Order Management System on which the array of account IDs exist.<em>required.</em></td>
+</tr>
+<tr>
+<td>startTime</td>
+<td><strong>string.</strong> <em>startTime</em> identifies the time and date for the historic beginning of the treasury activity report.<em>required.</em></td>
+</tr>
+<tr>
+<td>endTime</td>
+<td><strong>string.</strong> <em>endTime</em> identifies the time and date for the historic end of the treasury activity report.<em>required.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="c1">//Actual response</span>
+<span class="p">{</span>
+  <span class="dl">"</span><span class="s2">RequestingUser</span><span class="dl">"</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">OMSId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">reportFlavor</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Treasury</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">createTime</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2023-03-29T09:27:08.352Z</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">initialRunTime</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2023-03-29T09:27:08.352Z</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">intervalStartTime</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2023-03-01T16:00:00.000Z</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">intervalEndTime</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2023-03-02T16:00:00.000Z</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">RequestStatus</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Submitted</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">ReportFrequency</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">onDemand</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">intervalDuration</span><span class="dl">"</span><span class="p">:</span> <span class="mi">864000000000</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">RequestId</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">125e3f2e-0f19-47ba-9248-dfb8b98a1fac</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">lastInstanceId</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">00000000-0000-0000-0000-000000000000</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">accountIds</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Similar objects are returned for <strong>Generate~Report</strong> and <strong>Schedule~Report</strong> calls. As a result, for an on-demand <strong>Generate~Report</strong> call, some string-value pairs such as <em>initialRunTime</em> may return the current time and <em>ReportFrequency</em> will always return <em>OnDemand</em> because the report is only generated once and on demand.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>RequestingUser</td>
+<td><strong>integer.</strong> The User ID of the person requesting the treasury activity report. This confirms the ID of the authenticated user who made the request by returning it as part of the response.</td>
+</tr>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System on which the treasury activity report will be run.</td>
+</tr>
+<tr>
+<td>reportFlavor</td>
+<td><strong>string.</strong> The type of report to be generated. In the case of GenerateTreasuryActivityReport, report flavor will always be <strong>Treasury</strong></td>
+</tr>
+<tr>
+<td>createTime</td>
+<td><strong>string.</strong> The time and date on which the request for the treasury activity report was made.</td>
+</tr>
+<tr>
+<td>initialRunTime</td>
+<td><strong>string.</strong> The time and date at which the treasury activity report was first run.</td>
+</tr>
+<tr>
+<td>intervalStartTime</td>
+<td><strong>string.</strong> The start of the period that the report will cover.</td>
+</tr>
+<tr>
+<td>intervalEndTime</td>
+<td><strong>string.</strong> The end of the period that the report will cover.</td>
+</tr>
+<tr>
+<td>RequestStatus</td>
+<td><strong>string.</strong> The status of the request for the treasury activity report. A Generate~Report request will always return <em>Submitted</em>. Each request returns one of:<br />Submitted<br />Validating<br />Scheduled<br />InProgress<br />Completed<br />Aborting<br />Aborted<br />UserCancelled<br />SysRetired<br />UserCancelled<br />Pending</td>
+</tr>
+<tr>
+<td>ReportFrequency</td>
+<td><strong>string.</strong> When the report runs. For a <strong>Generate~Report</strong> call, this is always OnDemand. One of:<br />OnDemand<br />Hourly<br />Daily<br />Weekly<br />Monthly<br />Annually</td>
+</tr>
+<tr>
+<td>intervalDuration</td>
+<td><strong>long integer.</strong> The period that the report covers relative to the run date. The <strong>Generate~Report</strong> call requires a start time and an end time. The AlphaPoint software calculates the difference between them as <em>intervalDuration</em>.<br /><br />For example, say that you specify a 90-day start-date-to-end-date window for a report. The <em>intervalDuration</em> value returns a value equivalent to 90 days. If you have called <strong>Generate~Report</strong>, that value simply confirms the length of time that the on-demand report covers.</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td><strong>string.</strong> The ID of the original request. Request IDs are long strings unique within the Order Management System.</td>
+</tr>
+<tr>
+<td>lastInstanceId</td>
+<td><strong>string.</strong> For scheduled reports, the report ID of the most recent previously run report. Will be <em>null</em> for a <strong>Generate~Report</strong> call, because generated reports are on-demand.</td>
+</tr>
+<tr>
+<td>accountIds</td>
+<td><strong>integer array.</strong> A comma-delimited array of account IDs whose treasury activities are reported in the treasury activity report.</td>
+</tr>
+</tbody></table>

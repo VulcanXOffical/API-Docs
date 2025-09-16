@@ -1,0 +1,178 @@
+<h2 id='getlevel1'>GetLevel1</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Trading, Public<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Provides a current Level 1 snapshot (best bid, best offer and other data such lasttradedprice) of a specific instrument trading on an Order Management System. The Level 1 snapshot does not allow the user to specify the level of market depth information on either side of the bid and ask.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">'</span><span class="s1">GetLevel1</span><span class="dl">'</span><span class="p">,{</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="na">InstrumentId</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">})</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetLevel1</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">27</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="nl">"InstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the OMS on which the snapshot will be taken.<em>required.</em></td>
+</tr>
+<tr>
+<td>InstrumentId</td>
+<td><strong>integer.</strong> The ID of the instrument whose Level 1 market snapshot will be taken.<em>required.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"InstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"BestBid"</span><span class="p">:</span><span class="w"> </span><span class="mi">28700</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"BestOffer"</span><span class="p">:</span><span class="w"> </span><span class="mi">29000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"LastTradedPx"</span><span class="p">:</span><span class="w"> </span><span class="mi">29000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"LastTradedQty"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.001</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"LastTradeTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1679466290437</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"SessionOpen"</span><span class="p">:</span><span class="w"> </span><span class="mi">28000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"SessionHigh"</span><span class="p">:</span><span class="w"> </span><span class="mi">29000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"SessionLow"</span><span class="p">:</span><span class="w"> </span><span class="mi">28000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"SessionClose"</span><span class="p">:</span><span class="w"> </span><span class="mi">29000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Volume"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.001</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"CurrentDayVolume"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.222</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"CurrentDayNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">6425.0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"CurrentDayNumTrades"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"CurrentDayPxChange"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Rolling24HrVolume"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Rolling24HrNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Rolling24NumTrades"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Rolling24HrPxChange"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"TimeStamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1679466290440"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"BidQty"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"AskQty"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"BidOrderCt"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"AskOrderCt"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Rolling24HrPxChangePercent"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the OMS where the snapshot was taken.</td>
+</tr>
+<tr>
+<td>InstrumentId</td>
+<td><strong>integer.</strong> The ID of the instrument (the product pair) whose prices, bids, asks, and volumes are being reported.</td>
+</tr>
+<tr>
+<td>BestBid</td>
+<td><strong>real.</strong> The current highest price which a trader currently is willing to buy the instrument (product pair).</td>
+</tr>
+<tr>
+<td>BestOffer</td>
+<td><strong>real.</strong> The lowest price which a trader is willing to sell the instrument for the instrument (product pair).</td>
+</tr>
+<tr>
+<td>Volume</td>
+<td><strong>real.</strong> The unit volume of the instrument traded, either during a true session (with a market open and close), or in 24-hour markets, it is the period from UTC Midnight to UTC Midnight, regardless of the nominal location of the market.</td>
+</tr>
+<tr>
+<td>LastTradedPX</td>
+<td><strong>real.</strong> The last-traded price for the instrument.</td>
+</tr>
+<tr>
+<td>LastTradedVolume</td>
+<td><strong>real.</strong> The last quantity that was traded.</td>
+</tr>
+<tr>
+<td>LastTradeTime</td>
+<td><strong>real.</strong> The last time that the instrument was traded.</td>
+</tr>
+<tr>
+<td>TimeStamp</td>
+<td><strong>real.</strong> The date and time of this snapshot.</td>
+</tr>
+<tr>
+<td>BidQty</td>
+<td><strong>real.</strong> The quantity currently being bid.</td>
+</tr>
+<tr>
+<td>AskQty</td>
+<td><strong>real.</strong> The quantity currently being asked.</td>
+</tr>
+<tr>
+<td>BidOrderCt</td>
+<td><strong>integer.</strong> The count of bid orders.</td>
+</tr>
+<tr>
+<td>AskOrderCt</td>
+<td><strong>integer.</strong> The count of ask orders.</td>
+</tr>
+<tr>
+<td>SessionOpen</td>
+<td><strong>real.</strong> Opening price. In markets with openings and closings, this is the opening price for the current session; in 24-hour markets, it is the price as of UTC Midnight beginning the current day.</td>
+</tr>
+<tr>
+<td>SessionHigh</td>
+<td><strong>real.</strong> Highest price during the trading day, either during a true session (openings and closings) or UTC Midnight to UTC Midnight.</td>
+</tr>
+<tr>
+<td>SessionLow</td>
+<td><strong>real.</strong> Lowest price during the trading day, either during a true session (openings and closings) or UTC Midnight to UTC Midnight.</td>
+</tr>
+<tr>
+<td>SessionClose</td>
+<td><strong>real.</strong> The closing price. In markets that open and close, this is the closing price for the current or most recent session; for 24-hour markets, it is the price as of the most recent UTC Midnight.</td>
+</tr>
+<tr>
+<td>CurrentDayVolume</td>
+<td><strong>real.</strong> The unit volume of the instrument that is the subject of the snapshot, either during a true session (openings and closings) or in 24-hour markets, during the period UTC Midnight to UTC Midnight.</td>
+</tr>
+<tr>
+<td>CurrentDayNumTrades</td>
+<td><strong>integer.</strong> The number of trades during the current day, either during a true session (openings and closings) or in a 24-hour market the period from UTC Midnight to UTC Midnight.</td>
+</tr>
+<tr>
+<td>CurrentDayPxChange</td>
+<td><strong>real.</strong> Change in price over the current session or from UTC Midnight to UTC Midnight.</td>
+</tr>
+<tr>
+<td>CurrentNotional</td>
+<td><strong>decimal.</strong> Current day quote volume - resets at UTC Midnight.</td>
+</tr>
+<tr>
+<td>Rolling24HrNotional</td>
+<td><strong>decimal.</strong> Rolling 24 hours quote volume.</td>
+</tr>
+<tr>
+<td>Rolling24HrVolume</td>
+<td><strong>real.</strong> Unit volume of the instrument over the past 24 hours, regardless of time zone. This value recalculates continuously.</td>
+</tr>
+<tr>
+<td>Rolling24HrNumTrades</td>
+<td><strong>real.</strong> Number of trades during the past 24 hours, regardless of time zone. This value recalculates continuously.</td>
+</tr>
+<tr>
+<td>Rolling24HrPxChange</td>
+<td><strong>real.</strong> Price change during the past 24 hours, regardless of time zone. This value recalculates continuously.</td>
+</tr>
+<tr>
+<td>Rolling24HrPxChangePercent</td>
+<td><strong>real.</strong> Percent change in price during the past 24 hours.</td>
+</tr>
+</tbody></table>

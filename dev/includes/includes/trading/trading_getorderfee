@@ -1,0 +1,105 @@
+<h2 id='getorderfee'>GetOrderFee</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Operator, Trading<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Returns an estimate of the transaction/trading fee for a specific order side, instrument, and order type. An exchange operator decides and sets the fees for each instrument.</p>
+
+<p>The exchange generally deducts fees from the &quot;receiving&quot; side of the trade (although an operator can modify this). There are two products in every trade (and in every instrument); for example, the instrument BTCUSD comprises a BitCoin product and a US dollar product. Placing a buy order on the book causes fees to be deducted from Product 1, in this case, BitCoin; placing a sell order causes fees to be deducted from Product 2, in this case, US dollar.</p>
+
+<p>A user with Trading permission can get fee estimates for any account that user is associated with and for any instrument or product that that account can trade; a user with Operator permission can get fee estimates for any account, instrument, or product.</p>
+
+<p>If loyalty token is enabled and there is no market for the loyalty token, the system automatically uses 3rd party rates for the loyalty token market.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetOrderFee</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">AccountId</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+  <span class="na">InstrumentId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">Quantity</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+  <span class="na">Side</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="na">Price</span><span class="p">:</span> <span class="dl">"</span><span class="s2">10000</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">OrderType</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="na">MakerTaker</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Maker</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetOrderFee</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">f7e2c811-a9db-454e-9c9e-77533baf92d9 //valid sessiontoken</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">177</span>
+
+<span class="p">{</span><span class="w">
+  </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"InstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Side"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"OrderType"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"MakerTaker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Maker"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System on which the trade would take place.<em>required.</em></td>
+</tr>
+<tr>
+<td>AccountId</td>
+<td><strong>integer.</strong> The ID of the account requesting the fee estimate. There can be account overrides, the exchange operator can decide to apply very specific fees to specific accounts, such as a discounted price to a specific account.<em>required.</em></td>
+</tr>
+<tr>
+<td>InstrumentId</td>
+<td><strong>integer.</strong> The ID of the instrument being or to be traded.<em>required.</em></td>
+</tr>
+<tr>
+<td>Quantity</td>
+<td><strong>real.</strong> The quantity or amount of the proposed trade for which the Order Management System would charge a fee.<em>required.</em></td>
+</tr>
+<tr>
+<td>Price</td>
+<td><strong>real.</strong> The price at which the proposed trade would take place. Supply your price for a limit order; the exact price is difficult to know before execution.<em>required.</em></td>
+</tr>
+<tr>
+<td>OrderType</td>
+<td><strong>integer..</strong> The type of the proposed order. An operator can set fees per <strong>OrderType</strong>.<em>required.</em><br /> One of:<br />0 Unknown<br />1 Market<br />2 Limit<br />3 StopMarket<br />4 StopLimit<br />5 TrailingStopMarket<br />6 TrailingStopLimit<br />7 BlockTrade<br /></td>
+</tr>
+<tr>
+<td>MakerTaker</td>
+<td><strong>integer.</strong> Depending on the venue, there may be different fees for a maker (one who places the order on the books, either buy or sell) or taker (one who accepts the order, either buy or sell). If the user places a large order that is only partially filled, he is a partial maker.<em>required.</em><br />0 Unknown<br />1 Maker<br />2 Taker</td>
+</tr>
+<tr>
+<td>Side</td>
+<td><strong>integer.</strong> Side of the trade. It will decide at which product will the fee be donominated. In APEX, the fee is charged in the incoming product by default.<em>required.</em> One of:<br />0 Buy<br />1 Sell<br />2 Short<br />3 Unknown</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="dl">"</span><span class="s2">OrderFee</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.0000100000000000000000000000</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">ProductId</span><span class="dl">"</span><span class="p">:</span> <span class="mi">2</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">{
+    "OrderFee": 0.0000100000000000000000000000,
+    "ProductId": 2
+}
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OrderFee</td>
+<td><strong>real.</strong> The estimated fee for the trade as described.</td>
+</tr>
+<tr>
+<td>ProductId</td>
+<td><strong>integer.</strong> The ID of the product (currency) in which the fee is denominated.</td>
+</tr>
+</tbody></table>

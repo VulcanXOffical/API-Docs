@@ -1,0 +1,66 @@
+<h2 id='summary'>Summary</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Public<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Returns the summary for each instrument present in the exchange. Summary data is technically a simplified Level1 data.</p>
+<h3 id='request'>Request</h3>
+<p>No field is required in the request payload.</p>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">Summary</span><span class="dl">"</span><span class="p">,</span> <span class="p">{});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/Summary</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+
+</code></pre></div><h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="na">trading_pairs</span><span class="p">:</span> <span class="dl">"</span><span class="s2">BTC_USD</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">last_price</span><span class="p">:</span> <span class="mi">29000</span><span class="p">,</span>
+    <span class="na">lowest_ask</span><span class="p">:</span> <span class="mi">29000</span><span class="p">,</span>
+    <span class="na">highest_bid</span><span class="p">:</span> <span class="mi">28700</span><span class="p">,</span>
+    <span class="na">base_volume</span><span class="p">:</span> <span class="mf">0.222</span><span class="p">,</span>
+    <span class="na">quote_volume</span><span class="p">:</span> <span class="mf">6425.0</span><span class="p">,</span>
+    <span class="na">price_change_percent_24h</span><span class="p">:</span> <span class="mf">3.57142857142857142857142857</span><span class="p">,</span>
+    <span class="na">highest_price_24h</span><span class="p">:</span> <span class="mi">29000</span><span class="p">,</span>
+    <span class="na">lowest_price_24h</span><span class="p">:</span> <span class="mi">28000</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">trading_pairs</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ETH_USD</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">last_price</span><span class="p">:</span> <span class="mi">1970</span><span class="p">,</span>
+    <span class="na">lowest_ask</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">highest_bid</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">base_volume</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">quote_volume</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">price_change_percent_24h</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">highest_price_24h</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">lowest_price_24h</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">];</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">[
+    {
+        "trading_pairs": "BTC_USD",
+        "last_price": 29000,
+        "lowest_ask": 29000,
+        "highest_bid": 28700,
+        "base_volume": 0.2220000000000000000000000000,
+        "quote_volume": 6425.0000000000000000000000000,
+        "price_change_percent_24h": 3.5714285714285714285714285700,
+        "highest_price_24h": 29000,
+        "lowest_price_24h": 28000
+    },
+    {
+        "trading_pairs": "ETH_USD",
+        "last_price": 1970,
+        "lowest_ask": 0,
+        "highest_bid": 0,
+        "base_volume": 0.000,
+        "quote_volume": 0.000,
+        "price_change_percent_24h": 0,
+        "highest_price_24h": 0,
+        "lowest_price_24h": 0
+    }
+ ]
+
+</span></code></pre></div>
+<p>Returns an array of objects, each object is for a specific pair or instrument in the exchange. Each field in the object is labeled as to what it means.</p>

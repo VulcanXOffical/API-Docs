@@ -1,0 +1,97 @@
+<h2 id='getuserreportwriterresultrecords'>GetUserReportWriterResultRecords</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Operator, Trading<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Queries the database for ReportWriterResultRecords that result from the execution of reports requested by the session User.</p>
+
+<p>Users with Trading permission can request user report writer result records only for their own; users with Operator permission can request any user&#39;s report writer result records.</p>
+
+<aside class="notice"><strong>Note: </strong>"Depth" in this call is the count of records to be returned, not market depth.</aside>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetUserReportWriterResultRecords</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">UserId</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetUserReportWriterResultRecords</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">d0260e4b-bf6e-4fcd-a8cd-ad1cb01f2235</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">21</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"UserId"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>UserId</td>
+<td><strong>integer.</strong> The ID of the user whose report writer result records will be returned.<em>required.</em></td>
+</tr>
+<tr>
+<td>Depth</td>
+<td><strong>integer.</strong> The count of records to be returned, beginning at <em>startIndex</em> and working backwards into the past. If not defined, all report writer result records will be returned.<em>optional.</em></td>
+</tr>
+<tr>
+<td>StartIndex</td>
+<td><strong>integer.</strong> The record number at which the call starts returning records; from there, record return moves into the past. The most recent record is record is at startindex 0.<em>optional.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"RequestingUser"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"urtTicketId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c2186954-3549-4214-99de-17281b0b7b02"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"descriptorId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0d24a8bd-1017-4f5a-acbb-eb41316411ca"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"resultStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SuccessComplete"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"reportExecutionStartTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-30T07:16:30.949Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"reportExecutionCompleteTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-30T07:16:30.954Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"reportOutputFilePathname"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"reportDescriptiveHeader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TradeActivity|onDemand|2023-03-03T16:00:00.000Z|2023-03-04T16:00:00.000Z|2023-03-30T06:16:26.381Z|2023-03-30T07:16:30.949Z|0.00535 seconds"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>RequestingUser</td>
+<td><strong>Integer</strong>. ID of the user requesting the report writer result records.</td>
+</tr>
+<tr>
+<td>urtTicketId</td>
+<td><strong>string</strong>. An alphanumeric string containing the unique report ID of the report.</td>
+</tr>
+<tr>
+<td>descriptorId</td>
+<td><strong>string</strong>. A GUID (globally-unique identifier) that describes the report separately from the report ticket.</td>
+</tr>
+<tr>
+<td>resultStatus</td>
+<td><strong>string</strong>. The status of each run of the reports. One of:<br />0 NotStarted<br />1 NotComplete<br />2 ErrorComplete<br />3 SuccessComplete<br />4 Cancelled</td>
+</tr>
+<tr>
+<td>reportExecutionStartTime</td>
+<td><strong>string.</strong> The time that the report writer began execution, in Microsoft Ticks format.</td>
+</tr>
+<tr>
+<td>reportExecutionCompleteTime</td>
+<td><strong>string.</strong> The time that the report writer completed the report, in Microsoft Ticks format.</td>
+</tr>
+<tr>
+<td>reportOutputFilePathname</td>
+<td><strong>string.</strong> The pathname (location) of the report output file.</td>
+</tr>
+<tr>
+<td>reportDescriptiveHeader</td>
+<td><strong>string</strong>. A string describing the report.</td>
+</tr>
+</tbody></table>

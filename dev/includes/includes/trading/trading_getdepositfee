@@ -1,0 +1,85 @@
+<h2 id='getdepositfee'>GetDepositFee</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Operator, Trading, Deposit<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Get a fee estimate for a deposit.</p>
+
+<p>Deposit fee is something that can be set by an exchange operator in the AdminUI, it is set per product. One reason for an exchange to charge a deposit fee is to cover the gas fee during sweeping process just like for ERC-20 tokens.</p>
+
+<p>In the newer versions of APEX(version 4.0 and above), deposit fees can have overrides based on Account Provider or Account ID, means that a deposit can be set to apply only for a specific Account Provider used during the deposit or the specific account doing the deposit.</p>
+
+<p>A user with Trading or Deposit permissions can obtain deposit fee estimates only accounts with which the user is associated; a user with Operator permission can obtain deposit fee estimates for any account.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetDepositFee</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">AccountId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">ProductId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">Amount</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="na">AccountProviderId</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetDepositFee</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">apialphapointuniversitystaging.cdnhop.net:8443</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">1287b2b0-76c8-4249-ad22-3204fe4f4028</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">111</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ProductId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"AccountProviderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>All fields in the table below are required in order to the the correct deposit fee estimate.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System.<em>required.</em></td>
+</tr>
+<tr>
+<td>AccountId</td>
+<td><strong>integer.</strong> The ID of the account making the deposit.<em>required.</em></td>
+</tr>
+<tr>
+<td>ProductId</td>
+<td><strong>integer.</strong> The ID of the product intended to be deposited. Fees may vary with product.<em>required.</em></td>
+</tr>
+<tr>
+<td>Amount</td>
+<td><strong>real.</strong> The amount of product intended to be deposited.<em>required.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="dl">"</span><span class="s2">FeeAmount</span><span class="dl">"</span><span class="p">:</span> <span class="mf">1.0000000000000000000000000000</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">TicketAmount</span><span class="dl">"</span><span class="p">:</span> <span class="mi">100</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">{
+    "FeeAmount": 1.0000000000000000000000000000,
+    "TicketAmount": 100
+}
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>FeeAmount</td>
+<td><strong>real.</strong> The estimated amount of the fee for the indicated deposit.</td>
+</tr>
+<tr>
+<td>TicketAmount</td>
+<td><strong>real.</strong> The amount of product intended to be deposited.</td>
+</tr>
+</tbody></table>
