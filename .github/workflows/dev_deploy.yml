@@ -2,7 +2,7 @@ name: Dev Deploy
 
 on:
   push:
-    branches: [ 'dev' ]
+    branches: [ 'alpha' ]
 
 jobs:
   push_to_registry:
