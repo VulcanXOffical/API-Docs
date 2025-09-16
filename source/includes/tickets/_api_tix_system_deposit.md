@@ -20,7 +20,7 @@ Deposits funds into an account. This call is no longer used and is documented he
 | ------------ | ------------------------------------------------------------ |
 | omsId        | **integer.** The ID of the Order Management System into which the deposit is being made. |
 | accountId    | **integer.** The ID of the account receiving the deposit.    |
-| instrumentId | **integer.** The ID of the product (not instrument) being deposited. The AlphaPoint exchange differentiates between products and instruments (two products comprise an instrument, BitCoin and dollars, for example).      |
+| instrumentId | **integer.** The ID of the product (not instrument) being deposited. The VulcanX exchange differentiates between products and instruments (two products comprise an instrument, BitCoin and dollars, for example).      |
 | amount       | **real.** The unit and fractional amount of the deposit. For example, 2.5 BitCoin or 201.85 dollars. |
 | depositInfo  | **JSON string object.** A JSON object describing a deposit form template. The template may vary from Account Provider to Account Provider. You can obtain a list of templates available to you (and their contents) by calling **GetDepositRequestInfoTemplate** (you must have Operator or Trading permissions). |
 

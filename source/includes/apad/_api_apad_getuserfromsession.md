@@ -27,7 +27,7 @@ Returns information about the specified user session, including username, email,
     "OffExchangeBalancesByAssetName":[],
     "RoleNamesByCompanyName":["Windmill Farm, Inc.":"CoAdmin","Jones Investments, LLC":"CoShareholder"],
     "UserName":"jsmith",
-    "Email":"user@alphapoint.com",
+    "Email":"user@VulcanX.com",
     "ExternalId":0000
 }
 ```

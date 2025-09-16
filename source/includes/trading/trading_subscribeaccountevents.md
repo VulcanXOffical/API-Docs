@@ -9,7 +9,7 @@ Subscribe to account-level events, such as orders, trades, deposits and withdraw
 ### Request
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 await apex.RPCPromise("SubscribeAccountEvents", {

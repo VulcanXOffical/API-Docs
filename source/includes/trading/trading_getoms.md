@@ -9,7 +9,7 @@ Retrieves details for a logical OMS.
 ### Request
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 await apex.RPCPromise("GetOMS", {
@@ -40,7 +40,7 @@ _                                                |
 {
     "Id": 1,
     "OwnerId": 0,
-    "OMSName": "AlphapointUniversity",
+    "OMSName": "VulcanXUniversity",
     "InstanceGUID": "",
     "AssetManagerCoreId": "",
     "AssetManagerCoreUser": "",
@@ -67,7 +67,7 @@ _                                                |
 {
     "Id": 1,
     "OwnerId": 0,
-    "OMSName": "AlphapointUniversity",
+    "OMSName": "VulcanXUniversity",
     "InstanceGUID": "",
     "AssetManagerCoreId": "",
     "AssetManagerCoreUser": "",
@@ -95,7 +95,7 @@ _                                                |
 | Id                               | **integer.** The numerical ID of the Order Management System.                                                                                                                                                                                                                       |
 | OwnerId                        | **integer.** The identifier assigned to the creator of the OMS.                                                                                                                                                                                                                                                                      |
 | OMSName                              | **string.** The name of the Order Management System.                                                                                                                                                                                                                                     |
-| InstanceGUID                            | **integer.** A unique identifier for a particular instance of the Alphapoint trading system                                                                                                                                                                                                                                        |
+| InstanceGUID                            | **integer.** A unique identifier for a particular instance of the VulcanX trading system                                                                                                                                                                                                                                        |
 | AssetManagerCoreId                      | **integer.** The identifier of the core asset management system used to manage the assets traded on the platform.                                                                                                                                                                                                                              |
 | AssetManagerCoreUser                            | **integer.** The user of the core asset management system used to manage the assets traded on the platform.                                                                                                                                                                                                                                        |
 | AssetManagerCorePassword                      | **string.** The password of the core asset management system user.                                                                                                                                                                                                                              |

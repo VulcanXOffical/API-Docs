@@ -41,5 +41,3 @@ The Response returns an array of key names and their values.
 | ----- | ------------------------------------------------------------ |
 | Key   | **string.** The name of the key being returned.              |
 | Value | **string.** The value that corresponds to the *Key* string. Even numerical values are returned as strings. |
-
-

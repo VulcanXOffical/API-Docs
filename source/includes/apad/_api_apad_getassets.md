@@ -42,7 +42,7 @@ The reply returns an array of asset information, each element defining an asset 
 | CompanyName       | **string.** The name of the company that owns or provides the asset to the exchange. The calling user is associated with this company (or is a PlatformAdmin). |
 | AssetId           | **string.** The globally unique identifier of the asset.     |
 | Decimals          | **integer.** DEPRECATED The number of decimal places in which the asset is traded. For example, the US Dollar is traded to two decimal places. The maximum number of decimal places is eight. |
-| TotalIssued       | **long integer.** The total number of asset units (shares or tokens) currently available on the AlphaPoint Exchange. (Not the total number of assets or shares issued or issuable globally.) |
+| TotalIssued       | **long integer.** The total number of asset units (shares or tokens) currently available on the VulcanX Exchange. (Not the total number of assets or shares issued or issuable globally.) |
 | BoardApprovalDate | **string.** DEPRECATED The time- and date-stamp when the board of the company authorized the issuance of the asset (shares or tokens), in Microsoft Ticks format. The time and date are always given as UTC. |
 | Comments          | **string.** DEPRECATED Any comment appended to the asset.    |
 

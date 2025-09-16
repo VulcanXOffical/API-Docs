@@ -9,7 +9,7 @@ Associates an affiliate tag to a user. An exchange operator boost signups by can
 ### Request
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 await apex.RPCPromise('AddUserAffiliateTag',{

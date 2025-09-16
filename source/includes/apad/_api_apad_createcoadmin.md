@@ -12,7 +12,7 @@ Simultaneously creates a new user and designates that new user as company admin 
     "companyName":"Windmill Farm, Inc.",
     "userName":"jsmith",
     "isEnabled":false,
-    "email":"user@alphapoint.com",
+    "email":"user@VulcanX.com",
     "password":"abracadabra"
 }
 ```
@@ -48,6 +48,6 @@ Simultaneously creates a new user and designates that new user as company admin 
 | OffExachangeBalancesByAssetName | **array.** DEPRECATED Returns an array of key-value pairs consisting of an asset name (one of the asset names returned in the *AssetNamesByCompanyName* field) and a number representing the amount of that asset belonging to the company and *not* currently available on the exchange. In current implementations, usually returns and empty array. |
 | RoleNamesByCompanyName          | **array.** Returns an array of key-value pairs consisting of the company name (*companyName* in the request) and the name of a role that this user has been given for this company. Since this is a new user without prior role, and the new user is being made a company admin, the role returned here should be *CoAdmin*. Roles may be:<br />CoAdmin<br />CoShareholder<br />CoAgent |
 | UserName                        | **string.** The user name of the new user being created company administrator. |
-| ExtnernalId                     | **string.** The user ID of the user being made a company admin, returned from the AlphaPoint Exhange as a string. |
+| ExtnernalId                     | **string.** The user ID of the user being made a company admin, returned from the VulcanX Exhange as a string. |
 
 

@@ -15,7 +15,7 @@ Gets the trades that happened for a specific instrument, parameter **Count** can
 | Count        | Value represents the number of trades you want to get, value of 10 will return 10 most recent trades. If not set, all trades for the instrument will be included in the results._optional_ |
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 //Get all trades for instrument id 1

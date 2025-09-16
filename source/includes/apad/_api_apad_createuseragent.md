@@ -2,7 +2,7 @@
 
 **Category:** APAD<br />**Permissions:** PlatformAdmin, CoAdmin<br />**Call Type:** Asynchronous
 
-Creates a new user in the AlphaPoint exchange and assigns that user as an agent of the specified company. The company must already exist. 
+Creates a new user in the VulcanX exchange and assigns that user as an agent of the specified company. The company must already exist. 
 
 A company agent (CoAgent, or CompanyAgent), can trade or act in other ways on the company's behalf &mdash; as opposed to simply holding some token or share in the company. A user may be named as CoAgent for more than one company.
 
@@ -16,7 +16,7 @@ A user with CoAdmin permission can create a company agent only for companies for
     "companyName":"Windmill Farm, Inc.",
     "userName":"jsmith",
     "isEnabled":false,
-    "email":"user@alphapoint.com",
+    "email":"user@VulcanX.com",
     "password":"abracadabra"
 }
 ```
@@ -40,7 +40,7 @@ A user with CoAdmin permission can create a company agent only for companies for
     "OffExchangeBalancesByAssetName":[],
     "RoleNamesByCompanyName":["Windmill Farm, Inc.":"CoAgent"],
     "UserName":"jsmith",
-    "Email":"user@alphapoint.com",
+    "Email":"user@VulcanX.com",
     "ExternalId":0000
 }
 ```
@@ -54,6 +54,6 @@ A user with CoAdmin permission can create a company agent only for companies for
 | RoleNamesByCompanyName         | **array.** Returns an array of key-value pairs consisting of a company name and the name of a role that this user has been given for this company. Since this is a new user who has been given only the company agent role (so far), this field should return the company name and *CoAgent*. |
 | UserName                       | **string.** The name of the user being made an agent.        |
 | Email                          | **string.** The email of the user being made an agent.       |
-| ExternalId                     | **string.** The AlphaPoint user ID of the new user, returned as a string. |
+| ExternalId                     | **string.** The VulcanX user ID of the new user, returned as a string. |
 
 

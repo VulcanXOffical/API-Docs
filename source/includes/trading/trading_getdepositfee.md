@@ -15,7 +15,7 @@ A user with Trading or Deposit permissions can obtain deposit fee estimates only
 ### Request
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 await apex.RPCPromise("GetDepositFee", {
@@ -29,7 +29,7 @@ await apex.RPCPromise("GetDepositFee", {
 
 ```http
 POST /AP/GetDepositFee HTTP/1.1
-Host: apialphapointuniversitystaging.cdnhop.net:8443
+Host: apiVulcanXuniversitystaging.cdnhop.net:8443
 aptoken: 1287b2b0-76c8-4249-ad22-3204fe4f4028
 Content-Type: application/json
 Content-Length: 111

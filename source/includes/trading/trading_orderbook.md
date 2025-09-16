@@ -15,7 +15,7 @@ The OrderBook endpoint is to provide a complete level 2 order book (arranged by 
 | Level       | Either 1 or 2. 1 mean you only want to see the best bid and best ask, 2 means you want to see other levels of the book, number of bids and ask you will see depends on the **Depth** set, if **Depth** is not set and **Level** is set to 2, best bid and best ask will only be the ones to be returned.If **Level** is not set, default is 1._optional_ |
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 //No need to set Depth if Level is set to 1

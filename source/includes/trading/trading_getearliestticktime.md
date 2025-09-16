@@ -14,7 +14,7 @@ Gets the earliest ticker time possible for a specific instrument or market pair.
 | OMSId        | ID of the OMS where the pair or instrument is being traded._required_                                                                              |
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 await apex.RPCPromise("GetEarliestTickTime", {

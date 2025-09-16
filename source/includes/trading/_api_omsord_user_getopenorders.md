@@ -11,7 +11,7 @@ A user with Trading or AccountReadOnly permission must be associated with the ac
 ### Request
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 await apex.RPCPromise("GetOpenOrders", {
   OMSId: 1,

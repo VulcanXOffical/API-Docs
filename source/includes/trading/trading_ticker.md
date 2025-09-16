@@ -11,7 +11,7 @@ Ticker endpoint provide a 24-hour pricing and volume summary for each market pai
 No field is required in the request payload.
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 await apex.RPCPromise("Ticker", {});

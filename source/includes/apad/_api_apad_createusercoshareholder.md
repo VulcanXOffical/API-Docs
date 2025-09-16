@@ -2,7 +2,7 @@
 
 **Category:** APAD<br />**Permissions:** PlatformAdmin, CoAdmin<br />**Call Type:** Asynchronous
 
-Creates a new user on the AlphaPoint Exchange and assigns that user the role of shareholder in a specific company. A company shareholder may possess shares or tokens in a company.
+Creates a new user on the VulcanX Exchange and assigns that user the role of shareholder in a specific company. A company shareholder may possess shares or tokens in a company.
 
 A user may be a shareholder in more than one company.
 
@@ -18,7 +18,7 @@ A user with CoAdmin permission can create a company shareholder only for compani
     "companyName":"Windmill Farm, Inc.",
     "userName":"jsmith",
     "isEnabled":true,
-    "email":"user@alphapoint.com",
+    "email":"user@VulcanX.com",
     "password":"abracadabra"
 }
 ```
@@ -42,7 +42,7 @@ A user with CoAdmin permission can create a company shareholder only for compani
     "OffExchangeBalancesByAssetName":[],
     "RoleNamesByCompanyName":["Windmill Farm, Inc.":"CoShareholder"],
     "UserName":"jsmith",
-    "Email":"user@alphapoint.com",
+    "Email":"user@VulcanX.com",
     "ExternalId":"0000"
 }
 ```
@@ -56,6 +56,6 @@ A user with CoAdmin permission can create a company shareholder only for compani
 | RoleNamesByCompanyName         | **array.** Returns an array of key-value pairs consisting of a company name and the name of a role that this user has been given for this company. Since this is a new user who has been given the company shareholder role by this call, this field should return the company name and *CoShareholder*. |
 | UserName                       | **string.** The name of the new user being assigned the role of shareholder. |
 | Email                          | **string.** The email address of the new user being assigned the role of shareholder. |
-| ExternalId                     | **string.** The AlphaPoint user ID of the new user, returned as a string. |
+| ExternalId                     | **string.** The VulcanX user ID of the new user, returned as a string. |
 
 

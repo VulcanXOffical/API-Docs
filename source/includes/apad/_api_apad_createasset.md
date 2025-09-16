@@ -2,7 +2,7 @@
 
 **Category:** APAD<br />**Permissions:** PlatformAdmin<br />**Call Type:** Asynchronous
 
-Creates a new asset in the system and defines its attributes. An asset is the same as a product. The same call creates this product on the AlphaPoint exchange and associates that product with the company named in *CompanyName* so that CompanyName can supply the asset to the exchange &mdash; for example, they can offer shares in the &ldquo;Windmill Farms&rdquo; enterprise.
+Creates a new asset in the system and defines its attributes. An asset is the same as a product. The same call creates this product on the VulcanX exchange and associates that product with the company named in *CompanyName* so that CompanyName can supply the asset to the exchange &mdash; for example, they can offer shares in the &ldquo;Windmill Farms&rdquo; enterprise.
 
 ### Request
 

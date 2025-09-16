@@ -13,7 +13,7 @@ A user with Trading or Withdraw permissions can obtain withdrawal fee estimates 
 ### Request
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 await apex.RPCPromise("GetWithdrawFee", {

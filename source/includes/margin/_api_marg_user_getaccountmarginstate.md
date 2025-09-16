@@ -36,7 +36,7 @@ Users with Trading or AccountReadOnly permission can retrieve balances only for 
 | ---------------------- | ------------------------------------------------------------ |
 | omsId                  | **integer.** The ID of the Order Management System where the account operates. |
 | accountId              | **integer.** The ID of the account whose margin state is being returned. |
-| normalizedProductId    | **integer.** In order to facilitate calculating the values for *buyingPower* and *maintenanceRequirement,* the AlphaPoint Exchange rolls an account's complete holdings together into a "normalized product" &mdash; a concept product incorporating the value of all products held by the account. The Exchange assigns an ID to the "normalized product." The value of *normalizedProductId* is this ID.  |
+| normalizedProductId    | **integer.** In order to facilitate calculating the values for *buyingPower* and *maintenanceRequirement,* the VulcanX Exchange rolls an account's complete holdings together into a "normalized product" &mdash; a concept product incorporating the value of all products held by the account. The Exchange assigns an ID to the "normalized product." The value of *normalizedProductId* is this ID.  |
 | buyingPower            | **real.** The value of *buyingPower* is the total value of product held by the account plus the value of all available margin across all products held by the account.                |
 | maintenanceRequirement | **real.** An amount required to be held in the account to qualify for the account's current available margin. A low value for *maintenanceRequirement* will result in a margin call.  |
 

@@ -4,7 +4,7 @@
 
 Authenticates a user to the Exchange by accepting OAuth information.
 
-The AlphaPoint Exchange communicates internally with the client system that uses OAuth. This allows the OAuth-using system to authenticate users, and the AlphaPoint Exchange accepts that user based on the values for *AccessCode* and *Email*. This avoids the necessity of a double login.
+The VulcanX Exchange communicates internally with the client system that uses OAuth. This allows the OAuth-using system to authenticate users, and the VulcanX Exchange accepts that user based on the values for *AccessCode* and *Email*. This avoids the necessity of a double login.
 
 ### Request
 

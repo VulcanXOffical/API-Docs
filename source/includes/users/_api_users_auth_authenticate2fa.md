@@ -11,7 +11,7 @@
 }
 ```
 
-Completes the second part of a two-factor authentication by sending the authentication token from the non-AlphaPoint authentication system to the Order Management System. The call returns a verification that the user logging in has been authenticated, and a token.
+Completes the second part of a two-factor authentication by sending the authentication token from the non-VulcanX authentication system to the Order Management System. The call returns a verification that the user logging in has been authenticated, and a token.
 
 Here is how the two-factor authentication process works:
 

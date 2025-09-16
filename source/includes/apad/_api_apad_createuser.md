@@ -2,7 +2,7 @@
 
 **Category:** APAD<br />**Permissions:** PlatformAdmin, CoAdmin<br />**Call Type:** Asynchronous
 
-Creates a new user on the AlphaPoint Exchange along with a default account on the AlphaPoint Exchange for that user. The call also assigns the set of attributes listed in the Request.
+Creates a new user on the VulcanX Exchange along with a default account on the VulcanX Exchange for that user. The call also assigns the set of attributes listed in the Request.
 
 ### Request
 
@@ -15,7 +15,7 @@ Creates a new user on the AlphaPoint Exchange along with a default account on th
     "isPlatformAdmin":false,
     "isInvestor":true,
     "isMarketMaker":true,
-    "email":"user@alphapoint.com",
+    "email":"user@VulcanX.com",
     "password":"abracadabra"
 }
 ```
@@ -25,10 +25,10 @@ Creates a new user on the AlphaPoint Exchange along with a default account on th
 | sessionId       | **string.** The globally unique identifier for the current user's logged-in session. |
 | userName        | **string.** The log-in name of the user being created.       |
 | isEnabled       | **Boolean.** A value of *true* signifies that the user's email account has been verified; a value of *false* signifies that the email account has not been verified. Defaults to *false*. If a user's email account has *not* been verified, the new user must go through a verification process on first log-in. If the email is verified, the user can log in without going through a verification process. |
-| isNotVerified   | **Boolean.** DEPRECATED This value is *true* if the new user has *not* been verified automatically by a KYC (Know Your Customer) system, or manually by an AlphaPoint Exchange admin. The value is *false* if the new user has been verified. You can safely leave this field out of the Request. |
+| isNotVerified   | **Boolean.** DEPRECATED This value is *true* if the new user has *not* been verified automatically by a KYC (Know Your Customer) system, or manually by an VulcanX Exchange admin. The value is *false* if the new user has been verified. You can safely leave this field out of the Request. |
 | isPlatformAdmin | **Boolean.** This value is *true* if the new user has been assigned the role of platform admin; the value is *false* if the new user has not been assigned this role. A CoAdmin calling **CreateUser** cannot create a PlatformAdmin, and this field defaults to *false*. |
 | IsInvestor      | **Boolean.** This value is *true* if the new user is a qualified investor under the law.  |
-| isMarketMaker   | **Boolean.** This value is *true* if the new user has the role of market maker. Only a market maker may quote on the AlphaPoint Exchange. |
+| isMarketMaker   | **Boolean.** This value is *true* if the new user has the role of market maker. Only a market maker may quote on the VulcanX Exchange. |
 | email           | **string.** The email address of the new user.               |
 | password        | **string.** The password of the new user. This password is sent in clear. Note that the password is not confirmed in the response. |
 
@@ -42,7 +42,7 @@ Creates a new user on the AlphaPoint Exchange along with a default account on th
     "OffExhangeBalancesByAssetName":[],
     "RoleNamesByCompanyName":["Windmill Farm, Inc.":"CoAdmin"],
     "UserName":"jsmith",
-    "Email":"user@alphapoint.com",
+    "Email":"user@VulcanX.com",
     "ExternalId":0000
 }
 ```
@@ -57,6 +57,6 @@ Creates a new user on the AlphaPoint Exchange along with a default account on th
 | RoleNamesByCompanyName         | **array.** Returns an array of key-value pairs consisting of a company name and the name of a role that this user has been given for this company. Since this is a new user without a prior role or company connection (yet), this will return an empty array. |
 | UserName                       | **string.** The name of the new user, echoed back from the Request. |
 | Email                          | **string.** The email address of the new user, echoed back from the Request. |
-| ExternalId                     | **string.** The AlphaPoint user ID of the user being created, returned as a string. |
+| ExternalId                     | **string.** The VulcanX user ID of the user being created, returned as a string. |
 
 

@@ -11,7 +11,7 @@ Provides a current Level 2 snapshot of a specific instrument trading on an Order
 ### Request
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 await apex.RPCPromise('GetL2Snapshot',{

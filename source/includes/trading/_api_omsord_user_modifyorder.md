@@ -11,7 +11,7 @@ Reduces an order’s quantity without losing priority in the order book. An orde
 ### Request
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 await apex.RPCPromise("ModifyOrder", {
   OMSId: 1,

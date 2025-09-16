@@ -1,8 +1,8 @@
 ## Background: APAD Private Shares API
 
-APAD (*AlphaPoint Asset Digitization*) allows organizations to create and monetize assets that are not national or cryptocurrencies, and to offer them on the AlphaPoint Exchange.
+APAD (*VulcanX Asset Digitization*) allows organizations to create and monetize assets that are not national or cryptocurrencies, and to offer them on the VulcanX Exchange.
 
-The Private Shares API (PSAPI) is a web socket server and API that augments the AlphaPoint Exchange API. It adds the concepts of *asset issuers* (essentially, companies) and provides different roles for the management of digital assets. For example, company admin, company agent, company shareholder, investor, or marketmaker.
+The Private Shares API (PSAPI) is a web socket server and API that augments the VulcanX Exchange API. It adds the concepts of *asset issuers* (essentially, companies) and provides different roles for the management of digital assets. For example, company admin, company agent, company shareholder, investor, or marketmaker.
 
 ### Requesting and Receiving a Reply
 
@@ -70,4 +70,4 @@ Example 3 shows a successful receipt of a call, and Example 4 shows an unsuccess
 
 ### Authentication
 
-To use the APAD API, a user first authenticates with the AlphaPoint Exchange, using the APEX API (for example, using **AuthenticateUser**) to obtain a *sessionId*. That session ID must be passed to the APAD API with every request. It uniquely identifies the user &mdash; and all of that user's permissions and roles &mdash; for the current session.
+To use the APAD API, a user first authenticates with the VulcanX Exchange, using the APEX API (for example, using **AuthenticateUser**) to obtain a *sessionId*. That session ID must be passed to the APAD API with every request. It uniquely identifies the user &mdash; and all of that user's permissions and roles &mdash; for the current session.

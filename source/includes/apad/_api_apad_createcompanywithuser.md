@@ -18,7 +18,7 @@ Simultaneously creates a new company and a new company administrator user login 
     "accountingCurrency":"USD",
     "userName":"jsmith",
     "isEnabled":false,
-    "email":"user@alphapoint.com",
+    "email":"user@VulcanX.com",
     "password":"abracadabra"
 }
 ```

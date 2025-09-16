@@ -4,7 +4,7 @@
 
 Revokes the specified permission from the specified user.
 
-The AlphaPoint Exchange offers several hundred possible permissions that can be granted to a user. The default permissions are:<br />Deposit<br />Trading<br />Withdraw
+The VulcanX Exchange offers several hundred possible permissions that can be granted to a user. The default permissions are:<br />Deposit<br />Trading<br />Withdraw
 
 To see a list of available permissions on the Exchange, use **GetAvailablePermissionList.** To see a list of permissions already granted a specific user, use **GetUserPermissions.**
 

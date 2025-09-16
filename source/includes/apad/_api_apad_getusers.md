@@ -27,7 +27,7 @@ Returns an array of user information for users over whom the calling user has co
         "OffExchangeBalancesByAssetName":[],
         "RoleNamesByCompanyName":["Windmill Farm, Inc.":"CoAdmin"],
         "UserName":"jsmith",
-        "Email":"user@alphapoint.com",
+        "Email":"user@VulcanX.com",
         "ExternalId":0000
     }
 ]
@@ -44,6 +44,6 @@ The response returns an array of user information. Users are returned if they ar
 | RoleNamesByCompanyName         | **array.** Returns an array of key-value pairs consisting of a company name (associated with the calling user) and the name of a role that this user has been given for that company. Roles may be:<br />CoAdmin<br />CoShareholder<br />CoAgent<br /><br />This is not an enumerated list. |
 | UserName                       | **string.** The user name of the user associated in some way with the calling user. |
 | Email                          | **string.** The email of the user whose information is returned.                           |
-| ExternalId                     | **integer.** The AlphaPoint exchange user ID of the user whose information is returned.    |
+| ExternalId                     | **integer.** The VulcanX exchange user ID of the user whose information is returned.    |
 
 

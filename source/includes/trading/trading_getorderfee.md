@@ -15,7 +15,7 @@ If loyalty token is enabled and there is no market for the loyalty token, the sy
 ### Request
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 await apex.RPCPromise("GetOrderFee", {

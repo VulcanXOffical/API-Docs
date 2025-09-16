@@ -9,7 +9,7 @@ Returns an array of products available on the exchange. A product is an asset th
 ### Request
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 //Get all enabled products
@@ -42,7 +42,7 @@ StartIndex: 0, //will return products starting from Productd 1, a StartIndex of 
 
 ```http
 POST /AP/GetProducts HTTP/1.1
-Host: apialphapointuniversitystaging.cdnhop.net:8443
+Host: apiVulcanXuniversitystaging.cdnhop.net:8443
 Content-Type: application/json
 Content-Length: 20
 //Get all enabled products

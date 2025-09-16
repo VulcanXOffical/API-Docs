@@ -15,7 +15,7 @@ A user with Trading permission can retrieve orders only for accounts is associat
 ### Request
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 await apex.RPCPromise("GetOrders", {

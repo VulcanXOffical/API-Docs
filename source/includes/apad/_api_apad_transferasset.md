@@ -2,7 +2,7 @@
 
 **Category:** APAD<br />**Permissions:** PlatformAdmin, CompanyAdmin<br />**Call Type:** Asynchronous
 
-Transfers an asset from one account to another account on the AlphaPoint Exchange. Both accounts must already exist. On the exchange, an "account" is different from a "user," and both are different from a "company."
+Transfers an asset from one account to another account on the VulcanX Exchange. Both accounts must already exist. On the exchange, an "account" is different from a "user," and both are different from a "company."
 
 The **TransferAsset** call is used to grant assets from a company to a user. The "from" name must be an APAD company name.
 

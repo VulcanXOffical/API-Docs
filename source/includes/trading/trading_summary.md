@@ -11,7 +11,7 @@ Returns the summary for each instrument present in the exchange. Summary data is
 No field is required in the request payload.
 
 ```javascript
-const { APEX } = require("alphapoint-apex-api");
+const { APEX } = require("VulcanX-apex-api");
 const apex = new APEX("websocket url goes here...");
 
 await apex.RPCPromise("Summary", {});

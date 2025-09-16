@@ -2,7 +2,7 @@
 
 **Category:** APAD<br />**Permissions:** PlatformAdmin<br />**Call Type:** Asynchronous
 
-Creates a new company and assigns an existing user as the company administrator (CoAdmin). There can be more than one company administrator assigned to a company. The user must already exist on the AlphaPoint Exchange, but can be any user. 
+Creates a new company and assigns an existing user as the company administrator (CoAdmin). There can be more than one company administrator assigned to a company. The user must already exist on the VulcanX Exchange, but can be any user. 
 
 This call is similar to **CreateCoAdmin**, where a new user is created and assigned to an existing company; with **CreateCompanyWithExistingUser**, the user exists, but the company is created.
 
@@ -30,7 +30,7 @@ This call is similar to **CreateCoAdmin**, where a new user is created and assig
 | stateOrProvinceOfIncorporation | **string.** The name of the state or province where the company is incorporated. (This may not be the location of the company's principal office.) |
 | incorporationDate              | **string.** The time and date stamp of when the company was incorporated, in Microsoft Ticks format. The time and date are always given as UTC. |
 | accountingCurrency             | **string.** The name of the currency in which the company does its accounting. For example, USD for US Dollars. |
-| userName                       | **string.** The user name of the user who will be new company's company admin (CoAdmin). The user must already exist on the AlphaPoint Exchange. |
+| userName                       | **string.** The user name of the user who will be new company's company admin (CoAdmin). The user must already exist on the VulcanX Exchange. |
 
 ### Reply
 
