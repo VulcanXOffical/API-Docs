@@ -1,0 +1,41 @@
+<h2 id='subscribeorderstateevents'>SubscribeOrderStateEvents</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Trading<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Subscribe to order state events of a specific account&#39;s orders. Optional parameter to filter by instrument.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">SubscribeOrderStateEvents</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">AccountId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">InstrumentId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">//optional to filter for a specific instrument</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">//SubscribeOrderStateEvents is not available in HTTP. Subscription APIs is not supported in HTTP.
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the OMS on which the snapshot of all instruments will be taken.<em>required.</em></td>
+</tr>
+<tr>
+<td>AccountId</td>
+<td><strong>integer.</strong> The ID of the account to subscribe with.<em>required.</em></td>
+</tr>
+<tr>
+<td>InstrumentId</td>
+<td><strong>integer.</strong> The ID of the instrument to subscribe orderstateevents with. This field serves as the filter parameter.<em>optional.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">Subscribed</span><span class="p">:</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">//SubscribeOrderStateEvents is not available in HTTP. Subscription APIs is not supported in HTTP.
+</span></code></pre></div>
+<p>Returns either Subscribed: true or false. If false, it means that you were not able to subscribe to orderstateevents of the account. After successfully subscribing to orderstatevents of the account, you will receive the events message for any change of state of the account&#39;s order/s.</p>

@@ -1,0 +1,40 @@
+<h2 id='unsubscribeorderstateevents'>UnSubscribeOrderStateEvents</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Trading<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>UnSubscribe from account-level events. After being unsubscribed, you will stop receiving real-time events about transactions that concerns the specific account you unsubscribed to.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">'</span><span class="s1">UnSubscribeOrderStateEvents</span><span class="dl">'</span><span class="p">,{</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">AccountId</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="na">InstrumentId</span><span class="p">:</span> <span class="mi">1</span> <span class="c1">//Optional to unsubscribe to a specific instrument only</span>
+<span class="p">})</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">//UnSubscribeOrderStateEvents is not available in HTTP. Subscription APIs is not supported in HTTP.
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the OMS on which the snapshot of all instruments will be taken.<em>required.</em></td>
+</tr>
+<tr>
+<td>AccountId</td>
+<td><strong>integer.</strong> The ID of the account to subscribe with. This to make sure you will be unsubscribed to the correct account.<em>required.</em></td>
+</tr>
+<tr>
+<td>InstrumentId</td>
+<td><strong>integer.</strong> The ID of the instrument to unsubscribe orderstateevents with. This field serves as the filter parameter.<em>optional.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">UnSubscribed</span><span class="p">:</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">//UnSubscribeOrderStateEvents is not available in HTTP. Subscription APIs is not supported in HTTP.
+</span></code></pre></div>

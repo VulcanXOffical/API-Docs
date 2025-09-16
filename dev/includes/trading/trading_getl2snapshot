@@ -1,0 +1,156 @@
+<h2 id='getl2snapshot'>GetL2Snapshot</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Public<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Provides a current Level 2 snapshot of a specific instrument trading on an Order Management System to a user-determined market depth. The Level 2 snapshot allows the user to specify the level of market depth information on either side of the bid and ask.</p>
+
+<aside class="notice">Depth in this call is "depth of market," the number of buyers and sellers at greater or lesser prices in the order book for the instrument.</aside>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">'</span><span class="s1">GetL2Snapshot</span><span class="dl">'</span><span class="p">,{</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="na">InstrumentId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">Depth</span><span class="p">:</span> <span class="mi">100</span>
+<span class="p">})</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetL2Snapshot</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">63</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"InstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Depth"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer</strong>. The ID of the Order Management System where the instrument is traded.<em>required.</em></td>
+</tr>
+<tr>
+<td>InstrumentId</td>
+<td><strong>integer</strong>. The ID of the instrument that is the subject of the snapshot.<em>required.</em></td>
+</tr>
+<tr>
+<td>Depth</td>
+<td><strong>integer</strong>. Maximum number of bids and asks that can be included in the results. If set to 10, there can be maximum of 10 bids and 10 asks in the results.<em>required.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+  <span class="p">[</span>
+    <span class="mi">26</span><span class="p">,</span> <span class="c1">// MDUpdateId</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="c1">// Number of Unique Accounts</span>
+    <span class="mi">1679559223042</span><span class="p">,</span> <span class="c1">//ActionDateTime in Posix format X 1000</span>
+    <span class="mi">0</span><span class="p">,</span> <span class="c1">// ActionType 0 (New), 1 (Update), 2(Delete)</span>
+    <span class="mi">29000</span><span class="p">,</span> <span class="c1">// LastTradePrice</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="c1">// Number of Orders</span>
+    <span class="mi">28700</span><span class="p">,</span> <span class="c1">//Price</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="c1">// ProductPairCode</span>
+    <span class="mf">0.5</span><span class="p">,</span> <span class="c1">// Quantity</span>
+    <span class="mi">0</span><span class="p">,</span> <span class="c1">// Side 0 means buy and it is on the bid side</span>
+  <span class="p">],</span>
+  <span class="p">[</span>
+    <span class="mi">26</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+    <span class="mi">1679559223042</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">29000</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+    <span class="mi">29000</span><span class="p">,</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mf">0.52</span><span class="p">,</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="c1">// Side 1 means sell and it is on the ask side</span>
+  <span class="p">],</span>
+<span class="p">][</span>
+  <span class="c1">// This is how the response is sent:</span>
+
+  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">];</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">[
+    [
+        26, // MDUpdateId
+        1, // Number of Unique Accounts
+        1679559223042, //ActionDateTime in Posix format X 1000
+        0, // ActionType 0 (New), 1 (Update), 2(Delete)
+        29000, // LastTradePrice
+        1, // Number of Orders
+        28700, //Price
+        1, // ProductPairCode
+        0.5, // Quantity
+        0 // Side 0 means buy and it is on the bid side
+    ],
+    [
+        26,
+        2,
+        1679559223042,
+        0,
+        29000,
+        2,
+        29000,
+        1,
+        0.52,
+        1 // Side 1 means sell and it is on the ask side
+    ]
+]
+
+// This is how the response is sent:
+
+[[0,1,123,0,0.0,0,0.0,0,0.0,0]]
+</span></code></pre></div>
+<p>The response is an array of elements for one specific instrument, the number of elements corresponding to the market depth specified in the Request. It is sent as an uncommented, comma-delimited list of numbers. The example is commented. The <em>Level2UpdateEvent</em> contains the same data, but is sent by the OMS whenever trades occur. To receive <em>Level2UpdateEvents</em>, a user must subscribe to <em>Level2UpdateEvents</em>.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>MDUpdateID</td>
+<td><strong>integer</strong>. Market Data Update ID. This sequential ID identifies the order in which the update was created.</td>
+</tr>
+<tr>
+<td>Number of Unique Accounts</td>
+<td><strong>integer</strong>. Number of accounts that placed orders.</td>
+</tr>
+<tr>
+<td>ActionDateTime</td>
+<td><strong>long integer.</strong>. <em>ActionDateTime</em> identifies the time and date that the snapshot was taken or the event occurred, in POSIX format X 1000 (milliseconds since 1 January 1970).</td>
+</tr>
+<tr>
+<td>ActionType</td>
+<td><strong>integer</strong>. L2 information provides price data. This value shows whether this data is:<br /><strong>0</strong> new<br /><strong>1</strong> update<br /><strong>2</strong> deletion</td>
+</tr>
+<tr>
+<td>LastTradePrice</td>
+<td><strong>real</strong>. The price at which the instrument was last traded.</td>
+</tr>
+<tr>
+<td>Number of Orders</td>
+<td><strong>integer</strong>. Number of orders in the GetL2Snapshot.</td>
+</tr>
+<tr>
+<td>Price</td>
+<td><strong>real</strong>. Bid or Ask price for the Quantity (see <em>Quantity</em> below).</td>
+</tr>
+<tr>
+<td>ProductPairCode</td>
+<td><strong>integer</strong>. <em>ProductPairCode</em> is the same value and used for the same purpose as <em>InstrumentID</em>. The two are completely equivalent. <em>InstrumentId</em> 47 = <em>ProductPairCode</em> 47.</td>
+</tr>
+<tr>
+<td>Quantity</td>
+<td><strong>real</strong>. Quantity available at a given Bid or Ask price (see <em>Price</em> above).</td>
+</tr>
+<tr>
+<td>Side</td>
+<td><strong>integer</strong>. One of:<br /><strong>0</strong> Buy means it is on the bid side<br /><strong>1</strong> Sell means it is on the ask side<br /><strong>2</strong> Short (reserved for future use)<br /><strong>3</strong> Unknown (error condition)</td>
+</tr>
+</tbody></table>

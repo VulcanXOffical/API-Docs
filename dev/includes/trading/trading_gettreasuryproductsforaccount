@@ -1,0 +1,74 @@
+<h2 id='gettreasuryproductsforaccount'>GetTreasuryProductsForAccount</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Operator, Trading, Withdraw, Deposit<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Returns a list of products upon which the account id is allowed to execute treasury operations. Technically, the products returned are those products with a configured and enabled <strong>AccountProvider</strong>.</p>
+
+<p>Users with Trading, Withdraw, and Deposit permissions can call this API only for the accounts associated to them. Users with Operator permission can request the list of treasury products for any account.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetTreasuryProductsForAccount</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">AccountId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetTreasuryProductsForAccount</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">b031b607-818d-4799-9f5f-b07c7a28dd58 //valid sessiontoken</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">41</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>AccountId</td>
+<td><strong>integer.</strong> The ID of the account whose permitted treasury products will be returned.<em>required.</em></td>
+</tr>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System where the account operates.<em>required.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<blockquote>
+<p>An array of product symbols, each element of the array corresponds to a product.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+  <span class="dl">"</span><span class="s2">ETH</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">LINK</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">USD</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">ICX</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">BTC</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">USD</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">TXRP</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">ETH</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">APU</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">OTC</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">test2</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">BTC</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">];</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">[
+  "ETH",
+  "LINK",
+  "USD",
+  "ICX",
+  "BTC",
+  "USD",
+  "TXRP",
+  "ETH",
+  "APU",
+  "OTC",
+  "test2",
+  "BTC",
+];
+</span></code></pre></div>

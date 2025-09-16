@@ -1,0 +1,176 @@
+<h2 id='getaccountpositions'>GetAccountPositions</h2>
+<p><strong>Category:</strong> User<br />
+<strong>Permissions:</strong> Operator, Trading, AccountReadOnly<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Retrieves a list of positions (balances) for a specific user account running under a specific Order Management System. The trading day runs from UTC Midnight to UTC Midnight.</p>
+
+<p>Users with Trading or AccountReadOnly permission must specify an account ID with which they&#39;re associated on the Order Management System. Users with Operator permission can specify other accounts.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>AccountId</td>
+<td><strong>integer.</strong> The ID of the authenticated user’s account on the Order Management System for which positions will be returned.</td>
+</tr>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System to which the user belongs. A user will belong only to one OMS.</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"omsId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productSymbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"hold"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pendingDeposits"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pendingWithdraws"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalDayDeposits"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalMonthDeposits"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalYearDeposits"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalYearDepositNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalDayWithdraws"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalMonthWithdraws"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalYearWithdraws"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalYearWithdrawNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"notionalHoldAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"notionalRate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalDayDepositNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalMonthDepositNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalDayWithdrawNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalMonthWithdrawNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"omsId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productSymbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"hold"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pendingDeposits"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pendingWithdraws"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalDayDeposits"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalMonthDeposits"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalYearDeposits"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalYearDepositNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalDayWithdraws"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalMonthWithdraws"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalYearWithdraws"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalYearWithdrawNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"notionalHoldAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"notionalRate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalDayDepositNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalMonthDepositNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalDayWithdrawNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalMonthWithdrawNotional"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>The response returns an array of one or more positions for the account. This example response has returned two positions.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>omsId</td>
+<td><strong>Integer.</strong> The ID of the Order Management System (OMS) to which the user belongs. A user will only ever belong to one Order Management System. Note the change in capitalization from the request.</td>
+</tr>
+<tr>
+<td>accountId</td>
+<td><strong>integer.</strong> Returns the ID of the user’s account to which the positions belong. Note the change in capitalization from the request.</td>
+</tr>
+<tr>
+<td>productSymbol</td>
+<td><strong>string.</strong> The symbol of the product on this account’s side of the trade. For example:<br />BTC — BitCoin<br />USD — US Dollar<br />NZD — New Zealand Dollar <br /><br />Many other values are possible depending on the nature of the trading venue.</td>
+</tr>
+<tr>
+<td>productId</td>
+<td><strong>integer.</strong> The ID of the product being traded. The system assigns product IDs as they are entered into the system. Use <strong>GetProduct</strong> to return information about the product by its ID.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td><strong>real.</strong> Unit amount of the product; for example, 10 or 138.5.</td>
+</tr>
+<tr>
+<td>hold</td>
+<td><strong>real.</strong> Amount of currency held and not available for trade. A pending trade of 100 units at $1 each will reduce the amount in the account available for trading by $100 and produce a $100 hold. Amounts on hold cannot be withdrawn while a trade is pending.</td>
+</tr>
+<tr>
+<td>pendingDeposits</td>
+<td><strong>real.</strong> Deposits accepted but not yet cleared for trade.</td>
+</tr>
+<tr>
+<td>pendingWithdraws</td>
+<td><strong>real.</strong> Withdrawals acknowledged but not yet cleared from the account. Amounts in <em>PendingWithdraws</em> are not available for trade.</td>
+</tr>
+<tr>
+<td>totalDayDeposits</td>
+<td><strong>real.</strong> Total deposits on today’s date. The trading day runs between UTC Midnight and UTC Midnight.</td>
+</tr>
+<tr>
+<td>totalMonthDeposits</td>
+<td><strong>real.</strong> Total deposits for the month as of today&#39;s date.</td>
+</tr>
+<tr>
+<td>totalYearDeposits</td>
+<td><strong>real.</strong> Total deposits for the year as of today&#39;s date.</td>
+</tr>
+<tr>
+<td>totalYearDepositNotional</td>
+<td><strong>real.</strong> Yearly amount for deposit of crypto-currencies. It is usually calculated as<br />value = (Amount * Bid/Ask Price). 10 BitCoin each at $6700 equals $67000.</td>
+</tr>
+<tr>
+<td>totalDayWithdraws</td>
+<td><strong>real.</strong> Total withdrawals on today’s date. The trading day runs between UTC Midnight and UTC Midnight.</td>
+</tr>
+<tr>
+<td>totalMonthWithdraws</td>
+<td><strong>real.</strong> Total withdrawals during this month to date. The trading day runs between UTC Midnight and UTC Midnight — likewise a month begins at UTC Midnight on the first day of the month.</td>
+</tr>
+<tr>
+<td>totalYearWithdraws</td>
+<td><strong>real.</strong> Total withdrawals during the current year to date.</td>
+</tr>
+<tr>
+<td>totalYearWithdrawNotional</td>
+<td><strong>real.</strong> Yearly withdrawals for crypto-currencies. It is usually calculated as<br />value = (Amount * Bid/Ask Price). 10 BitCoin each at $6700 equals $67000.</td>
+</tr>
+<tr>
+<td>notionalHoldAmount</td>
+<td><strong>decimal.</strong> Cross Product Amount on Hold from open orders</td>
+</tr>
+<tr>
+<td>notionalRate</td>
+<td><strong>decimal.</strong> Current notional rate from base currency</td>
+</tr>
+<tr>
+<td>totalDayDepositNotional</td>
+<td><strong>decimal.</strong> Total Calendar Day Deposit Notional</td>
+</tr>
+<tr>
+<td>totalMonthDepositNotional</td>
+<td><strong>decimal.</strong> Total Calendar Month Deposit Notional</td>
+</tr>
+<tr>
+<td>totalDayWithdrawNotional</td>
+<td><strong>decimal.</strong> Total Calendar Day Withdraw Notional</td>
+</tr>
+<tr>
+<td>totalMonthWithdrawNotional</td>
+<td><strong>decimal.</strong> Total Calendar Month Withdraw Notional</td>
+</tr>
+</tbody></table>

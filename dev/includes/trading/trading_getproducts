@@ -1,0 +1,200 @@
+<h2 id='getproducts'>GetProducts</h2>
+<p><strong>Category:</strong> User<br />
+<strong>Permissions:</strong> Public<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Returns an array of products available on the exchange. A product is an asset that is tradable or paid out.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="c1">//Get all enabled products</span>
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">'</span><span class="s1">GetProducts</span><span class="dl">'</span><span class="p">,{</span>
+<span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="c1">//Get all products including disabled products</span>
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">'</span><span class="s1">GetProducts</span><span class="dl">'</span><span class="p">,{</span>
+<span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="na">GetDisabled</span><span class="p">:</span> <span class="kc">true</span> <span class="c1">//or</span>
+<span class="na">GetDisabled</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">})</span>
+
+<span class="c1">//Get all products that matches an attribute and its value</span>
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">'</span><span class="s1">GetProducts</span><span class="dl">'</span><span class="p">,{</span>
+<span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="na">Attribute</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Pegged</span><span class="dl">"</span>
+<span class="na">AttributeValue</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">})</span>
+
+<span class="c1">//Starting APEX version 4.4, Depth and StartIndex fields are already supported</span>
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">'</span><span class="s1">GetProducts</span><span class="dl">'</span><span class="p">,{</span>
+<span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="na">GetDisabled</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="na">Depth</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="c1">//will only return max 10 results</span>
+<span class="na">StartIndex</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1">//will return products starting from Productd 1, a StartIndex of 10 will return products starting from ProductId 11(means that ProductsId 1 - 10 will not be in he results)</span>
+<span class="p">})</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetProducts</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">apialphapointuniversitystaging.cdnhop.net:8443</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">20</span>
+<span class="s">//Get all enabled products</span>
+<span class="s">{</span>
+<span class="s">    "OMSId": 1</span>
+<span class="s">}</span>
+<span class="s">//Get all products including disabled products</span>
+<span class="s">{</span>
+<span class="s">    "OMSId": 1,</span>
+<span class="s">    "GetDisabled": true</span>
+<span class="s">}</span>
+<span class="s">//Get all products that matches an attribute and its value</span>
+<span class="s">{</span>
+<span class="s">    "OMSId": 1,</span>
+<span class="s">    "Attribute": "Pegged",</span>
+<span class="s">    "AttributeValue": true</span>
+<span class="s">}</span>
+
+<span class="err">//Starting</span><span class="w"> </span><span class="err">APEX</span><span class="w"> </span><span class="err">version</span><span class="w"> </span><span class="mf">4.4</span><span class="w"> </span><span class="err">Depth</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">StartIndex</span><span class="w"> </span><span class="err">fields</span><span class="w"> </span><span class="err">are</span><span class="w"> </span><span class="err">already</span><span class="w"> </span><span class="err">supported</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"GetDisabled"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Depth"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="err">//will</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">return</span><span class="w"> </span><span class="err">max</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="err">results</span><span class="w">
+  </span><span class="nl">"StartIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="err">//will</span><span class="w"> </span><span class="err">return</span><span class="w"> </span><span class="err">products</span><span class="w"> </span><span class="err">starting</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="err">Productd</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">StartIndex</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="err">will</span><span class="w"> </span><span class="err">return</span><span class="w"> </span><span class="err">products</span><span class="w"> </span><span class="err">starting</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="err">ProductId</span><span class="w"> </span><span class="mi">11</span><span class="err">(means</span><span class="w"> </span><span class="err">that</span><span class="w"> </span><span class="err">ProductsId</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="err">-</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="err">will</span><span class="w"> </span><span class="err">not</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">he</span><span class="w"> </span><span class="err">results)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System for which the array of available products will be returned.<em>required.</em></td>
+</tr>
+<tr>
+<td>Attribute</td>
+<td><strong>string.</strong> The attribute key or name for which you want to filter the results with.<em>optional.</em></td>
+</tr>
+<tr>
+<td>AttributeValue</td>
+<td><strong>string.</strong> Used to filter the results further, only products whose attribute value will match the one set will be returned.<em>optional</em></td>
+</tr>
+<tr>
+<td>GetDisabled</td>
+<td><strong>bool or integer.</strong> Used to filter disabled products, setting this to true will return all products including the disabled ones.<em>optional</em></td>
+</tr>
+<tr>
+<td>Depth</td>
+<td><strong>integer.</strong> Used for pagination. Indicates the maximum number of results to be returned.<em>optional</em></td>
+</tr>
+<tr>
+<td>StartIndex</td>
+<td><strong>integer.</strong> Used for pagination. ProductId 1 represents index 0. A value of 2 for this field will not include ProductId 1 and 2 in the results.<em>optional</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">ProductId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">Product</span><span class="p">:</span> <span class="dl">"</span><span class="s2">USD</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ProductFullName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">US Dollar</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">MasterDataUniqueProductSymbol</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="na">ProductType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">NationalCurrency</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">DecimalPlaces</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="na">TickSize</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+    <span class="na">DepositEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">WithdrawEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">NoFees</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">IsDisabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">MarginEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">ProductId</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="na">Product</span><span class="p">:</span> <span class="dl">"</span><span class="s2">BTC</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ProductFullName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bitcoin</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">MasterDataUniqueProductSymbol</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="na">ProductType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">CryptoCurrency</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">DecimalPlaces</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="na">TickSize</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">,</span>
+    <span class="na">DepositEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">WithdrawEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">NoFees</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">IsDisabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">MarginEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">];</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">[
+    {
+        "OMSId": 1,
+        "ProductId": 1,
+        "Product": "USD",
+        "ProductFullName": "US Dollar",
+        "MasterDataUniqueProductSymbol": "",
+        "ProductType": "NationalCurrency",
+        "DecimalPlaces": 2,
+        "TickSize": 0.0100000000000000000000000000,
+        "DepositEnabled": true,
+        "WithdrawEnabled": true,
+        "NoFees": false,
+        "IsDisabled": false,
+        "MarginEnabled": false
+    },
+    {
+        "OMSId": 1,
+        "ProductId": 2,
+        "Product": "BTC",
+        "ProductFullName": "Bitcoin",
+        "MasterDataUniqueProductSymbol": "",
+        "ProductType": "CryptoCurrency",
+        "DecimalPlaces": 8,
+        "TickSize": 0.0000000100000000000000000000,
+        "DepositEnabled": true,
+        "WithdrawEnabled": true,
+        "NoFees": false,
+        "IsDisabled": false,
+        "MarginEnabled": false
+    }
+]
+</span></code></pre></div>
+<p>The response returns an array of objects, one object for each product available on the Order Management System.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System that offers the product.</td>
+</tr>
+<tr>
+<td>ProductId</td>
+<td><strong>long integer.</strong> The ID of the product.</td>
+</tr>
+<tr>
+<td>Product</td>
+<td><strong>string.</strong> “Nickname” or shortened name of the product. For example, NZD (New Zealand Dollar).</td>
+</tr>
+<tr>
+<td>ProductFullName</td>
+<td><strong>string.</strong> Full and official name of the product. For example, New Zealand Dollar.</td>
+</tr>
+<tr>
+<td>ProductType</td>
+<td><strong>integer.</strong> A number describing the nature of the product. One of:<br />0 Unknown (an error condition)<br />1 NationalCurrency<br />2 CryptoCurrency<br />3 Contract</td>
+</tr>
+<tr>
+<td>DecimalPlaces</td>
+<td><strong>integer.</strong> The number of decimal places in which the product is divided. The maximum is 8. For example, US Dollars are divided into 100 units, or 2 decimal places. Other products may be different. Burundi Francs use 0 decimal places and the Rial Omani uses 3.</td>
+</tr>
+<tr>
+<td>TickSize</td>
+<td><strong>real.</strong> The smallest increment in which the product can trade.</td>
+</tr>
+<tr>
+<td>NoFees</td>
+<td><strong>Boolean.</strong> Shows whether trading the product incurs transaction fees. The default is <em>false</em>; that is, if <em>NoFees</em> is <em>false</em>, transaction fees will be incurred. If <em>NoFees</em> is <em>true</em>, no fees are incurred.</td>
+</tr>
+</tbody></table>

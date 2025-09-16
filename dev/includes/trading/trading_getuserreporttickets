@@ -1,0 +1,182 @@
+<h2 id='getuserreporttickets'>GetUserReportTickets</h2>
+<p><strong>Category:</strong> User<br />
+<strong>Permissions:</strong> Operator, Trading<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Returns an array of user report tickets for a specific user ID. A user report ticket identifies a report requested or scheduled by a user. Reports can run once or periodically.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">CancelUserReport</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">UserReportId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">389f244a-b958-4545-a4a7-61a73205b59e</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetUserReportTickets</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">250c3ff1-cfb2-488f-be88-dfaf12e4f975 //valid sessiontoken</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">20</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"UserId"</span><span class="p">:</span><span class="mi">6</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>UserId</td>
+<td><strong>integer</strong>. The ID of the user whose user report tickets will be returned.<em>required.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<p>The response returns an array of object, each object represents a report.</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">//Actual</span><span class="w"> </span><span class="err">response</span><span class="w">
+</span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"RequestingUser"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"reportFlavor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TradeActivity"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"createTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-16T02:18:27.597Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"initialRunTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-16T02:18:27.596Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"intervalStartTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-01T16:00:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"intervalEndTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-03T16:00:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"RequestStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Completed"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"ReportFrequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"onDemand"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"intervalDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1728000000000</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"RequestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0e3b96ac-c72c-4821-b124-b1d5c653e89f"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"lastInstanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"00000000-0000-0000-0000-000000000000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"accountIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="mi">9</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"RequestingUser"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"reportFlavor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TradeActivity"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"createTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-16T02:42:48.647Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"initialRunTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-16T02:42:48.646Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"intervalStartTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-01T16:00:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"intervalEndTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-02T16:00:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"RequestStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Completed"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"ReportFrequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"onDemand"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"intervalDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">864000000000</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"RequestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0f14b67b-8e80-43c3-b1ce-7c9146e645f8"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"lastInstanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"00000000-0000-0000-0000-000000000000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"accountIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="mi">9</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span><span class="err">//Possible</span><span class="w"> </span><span class="err">reponse</span><span class="w"> </span><span class="err">values</span><span class="w">
+</span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"RequestingUser"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reportFlavor"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Options"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="s2">"TradeActivity"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"Transaction"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"Treasury"</span><span class="w">
+         </span><span class="p">]</span><span class="w">
+       </span><span class="p">},</span><span class="w">
+       </span><span class="nl">"createTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T05:00:00Z"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"initialRunTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T05:00:00Z"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"intervalStartTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T05:00:00Z"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"intervalEndTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T05:00:00Z"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"RequestStatus"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"Options"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+           </span><span class="s2">"Submitted"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"Validating"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"Scheduled"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"InProgress"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"Completed"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"Aborting"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"Aborted"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"UserCancelled"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"SysRetired"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"UserCancelledPending"</span><span class="w">
+         </span><span class="p">]</span><span class="w">
+       </span><span class="p">},</span><span class="w">
+       </span><span class="nl">"ReportFrequency"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"Options"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+           </span><span class="s2">"onDemand"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"Hourly"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"Daily"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"Weekly"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"Monthly"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"Annually"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+       </span><span class="nl">"intervalDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"RequestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I2nCtvyY8UuHsoSyrLe2QA=="</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"lastInstanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AAAAAAAAAAAAAAAAAAAAAA=="</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"accountIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+         </span><span class="mi">1</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>RequestingUser</td>
+<td><strong>integer.</strong> The User ID of the person requesting the report.</td>
+</tr>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System on which the report was run.</td>
+</tr>
+<tr>
+<td>reportFlavor</td>
+<td><strong>string.</strong> The type of report. One of<br />Tradeactivity<br />Transaction<br />Treasury</td>
+</tr>
+<tr>
+<td>createTime</td>
+<td><strong>string.</strong> The time and date at which the request for the report was made, Microsoft Ticks format.</td>
+</tr>
+<tr>
+<td>initialRunTime</td>
+<td><strong>string.</strong> The time and date at which the report was first run, Microsoft Ticks format.</td>
+</tr>
+<tr>
+<td>intervalStartTime</td>
+<td><strong>string.</strong> The start of the period that the report will cover, Microsoft Ticks format.</td>
+</tr>
+<tr>
+<td>intervalEndTime</td>
+<td><strong>string.</strong> The end of the period that the report will cover, Microsoft Ticks format.</td>
+</tr>
+<tr>
+<td>RequestStatus</td>
+<td><strong>string.</strong> The status of the request for the report. Each status returns one of:<br />Submitted<br />Validating<br />Scheduled<br />InProgress<br />Completed<br />Aborting<br />Aborted<br />UserCancelled<br />SysRetired<br />UserCancelPending</td>
+</tr>
+<tr>
+<td>ReportFrequency</td>
+<td><strong>string.</strong> When the report runs:<br />OnDemand<br />Hourly<br />Daily<br />Weekly<br />Monthly<br />Annually</td>
+</tr>
+<tr>
+<td>intervalDuration</td>
+<td><strong>long integer.</strong> The period that the report looks backward relative to the run date, in POSIX format. The system calculates <em>intervalDuration</em> between <em>intervalStartTime</em> and <em>intervalEndTime</em> and reports it in POSIX format. For example, say that you specify a 90-day start-to-end-date window for a report. The <em>intervalDuration</em> value returns a value equivalent to 90 days and represents the backward-looking period of the report. Say that you have set up a weekly report to look back 90 days. When the report runs again in a week&#39;s time, it again looks back 90 days -- but now those 90 days are offset by a week from the first report.</td>
+</tr>
+<tr>
+<td>RequestId</td>
+<td><strong>string.</strong> The ID of the original request. Request IDs are long strings unique within the Order Management System.</td>
+</tr>
+<tr>
+<td>lastInstanceId</td>
+<td><strong>string.</strong> For scheduled reports, the report ID of the most recent previously run report. This will be <em>null</em> for a Generate~Report call, because generated reports are all on-demand.</td>
+</tr>
+<tr>
+<td>accountIds</td>
+<td><strong>integer array.</strong> A comma-delimited array of account IDs whose trades are reported in the trade activity report.</td>
+</tr>
+</tbody></table>

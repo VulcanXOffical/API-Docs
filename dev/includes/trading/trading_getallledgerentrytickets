@@ -1,0 +1,203 @@
+<h2 id='getallledgerentrytickets'>GetAllLedgerEntryTickets</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Operator, Trading<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Retrieves account ledger entries for a specific account.</p>
+
+<p>Results can also be filtered according to optional search parameters such as <strong>ProductId</strong>, other optional parameters are defined in the request key-value table below.</p>
+
+<p>It is also possible to filter according to <strong>AccountLedgerEntryId</strong>.</p>
+
+<p>A user with Trading permission can only retrieve ledger entries for accounts it is associated with; a user with Operator permission can retrieve ledger entries for any account.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetAllLedgerEntryTickets</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">AccountId</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetAllLedgerEntryTickets</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">c5f917b9-f173-4c29-a615-1503d2e78023 //valid sessiontoken</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">41</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer</strong>. The ID of the Order Management System on which the orders took place.<em>required.</em></td>
+</tr>
+<tr>
+<td>AccountId</td>
+<td><strong>integer</strong>. The account ID for which the ledger entry was executed for.<em>required.</em></td>
+</tr>
+<tr>
+<td>ProductId</td>
+<td><strong>integer.</strong> The product which was either debited or credited to the account. Can be used to filter results.<em>optional.</em></td>
+</tr>
+<tr>
+<td>EnteredBy</td>
+<td><strong>integer.</strong> The id of the user who submitted the account ledger entry. Can be used to filter results.<em>optional.</em></td>
+</tr>
+<tr>
+<td>AccountLedgerEntryId</td>
+<td><strong>integer</strong>. The Id of the actual ledger entry. If value is 0(the same as not putting the filter), results will have all the ledger entries for the specific account, if value is greater than 0 and exactly matches a ledger entry for the specific account, it will result to just one ledger entry being returned as 1 id represents exactly 1 ledger entry, if the id does not match any account ledger entry for the specific account, the result will be an empty array.<em>optional.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="na">AccountId</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="na">ProductId</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+    <span class="na">CR_Amt</span><span class="p">:</span> <span class="mf">1000000.0</span><span class="p">,</span>
+    <span class="na">DR_Amt</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">EnteredBy</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">Comments</span><span class="p">:</span> <span class="p">[</span><span class="dl">""</span><span class="p">],</span>
+    <span class="na">OneSidedTransaction</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">AccountLedgerEntryId</span><span class="p">:</span> <span class="mi">3519</span><span class="p">,</span>
+    <span class="na">TimeStamp</span><span class="p">:</span> <span class="mi">1676542115034</span><span class="p">,</span>
+    <span class="na">Status</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Accepted</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">RejectReason</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">AccountChangeReason</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Manual</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">CounterPartyId</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">DoNotAffectBalance</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">TransactionType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Other</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">TransactionReferenceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ManualEntry</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">AccountId</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="na">ProductId</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="na">CR_Amt</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="na">DR_Amt</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">EnteredBy</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">Comments</span><span class="p">:</span> <span class="p">[</span><span class="dl">""</span><span class="p">],</span>
+    <span class="na">OneSidedTransaction</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">AccountLedgerEntryId</span><span class="p">:</span> <span class="mi">3509</span><span class="p">,</span>
+    <span class="na">TimeStamp</span><span class="p">:</span> <span class="mi">1676260561012</span><span class="p">,</span>
+    <span class="na">Status</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Accepted</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">RejectReason</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">AccountChangeReason</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Manual</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">CounterPartyId</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">DoNotAffectBalance</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">TransactionType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Other</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">TransactionReferenceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ManualEntry</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">];</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">[
+    {
+        "AccountId": 9,
+        "ProductId": 16,
+        "CR_Amt": 1000000.0000000000000000000000,
+        "DR_Amt": 0.0000000000000000000000000000,
+        "EnteredBy": 1,
+        "Comments": [
+            ""
+        ],
+        "OneSidedTransaction": 0,
+        "AccountLedgerEntryId": 3519,
+        "TimeStamp": 1676542115034,
+        "Status": "Accepted",
+        "RejectReason": 0,
+        "AccountChangeReason": "Manual",
+        "CounterPartyId": 3,
+        "DoNotAffectBalance": false,
+        "TransactionType": "Other",
+        "TransactionReferenceType": "ManualEntry"
+    },
+    {
+        "AccountId": 9,
+        "ProductId": 2,
+        "CR_Amt": 1.0000000000000000000000000000,
+        "DR_Amt": 0.0000000000000000000000000000,
+        "EnteredBy": 1,
+        "Comments": [
+            ""
+        ],
+        "OneSidedTransaction": 0,
+        "AccountLedgerEntryId": 3509,
+        "TimeStamp": 1676260561012,
+        "Status": "Accepted",
+        "RejectReason": 0,
+        "AccountChangeReason": "Manual",
+        "CounterPartyId": 3,
+        "DoNotAffectBalance": false,
+        "TransactionType": "Other",
+        "TransactionReferenceType": "ManualEntry"
+    }
+]
+</span></code></pre></div>
+<p>Returns an array of objects, each object represents a ledger entry. The call returns an empty array if there are no ledger entries for the account.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>AccountId</td>
+<td><strong>integer</strong>. The account ID for which the ledger entry was executed for. Or the account which was either debited or credited.</td>
+</tr>
+<tr>
+<td>ProductId</td>
+<td><strong>integer.</strong> The product which was either debited or credited to the account.</td>
+</tr>
+<tr>
+<td>CR_Amt</td>
+<td><strong>real</strong> The amount credited, if value is greater than 0, it means the account was credited.</td>
+</tr>
+<tr>
+<td>DR_Amt</td>
+<td><strong>real</strong> The amount debited, if value is greater than 0, it means the account was debited.</td>
+</tr>
+<tr>
+<td>EnteredBy</td>
+<td><strong>integer.</strong> The id of the user who submitted the account ledger entry.</td>
+</tr>
+<tr>
+<td>Comments</td>
+<td><strong>string</strong>. Any note or comment entered for the ledger entry.</td>
+</tr>
+<tr>
+<td>AccountLedgerEntryId</td>
+<td><strong>integer</strong>. The Id of the actual ledger entry.</td>
+</tr>
+<tr>
+<td>TimeStamp</td>
+<td><strong>long integer</strong>. Time stamp of the order in POSIX format x 1000 (milliseconds since 1/1/1970 in UTC time zone)</td>
+</tr>
+<tr>
+<td>Status</td>
+<td><strong>string</strong>. The status of the ledger entry</td>
+</tr>
+<tr>
+<td>RejectReason</td>
+<td><strong>string</strong>. The reason why the ledger entry was rejected.</td>
+</tr>
+<tr>
+<td>AccountChangeReason</td>
+<td><strong>string</strong>. Always <strong>Manual</strong> since a ledger entry is a ManualEntry TransactionReferenceType.</td>
+</tr>
+<tr>
+<td>CounterPartyId</td>
+<td><strong>integer</strong>. The id of the counterparty account. If the accountid was debited, the counterpartyid was credited. Usually has a value of 3, it is the OMS Liability Account. If CounterpartyId was set to a value other than 3, the counterpart transaction either debit or credit will happen to the specific id and it will be the one to reflect as the value of this field.</td>
+</tr>
+<tr>
+<td>TransactionType</td>
+<td><strong>string</strong>. Always <strong>Other</strong> since a ledger entry is classified as TransactionType <strong>Other</strong>.</td>
+</tr>
+<tr>
+<td>TransactionReferenceType</td>
+<td><strong>string</strong>. Always <strong>ManualEntry</strong> since a ledger entry is classified as a TransactionReferenceType <strong>ManualEntry</strong>.</td>
+</tr>
+</tbody></table>

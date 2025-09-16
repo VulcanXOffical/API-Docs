@@ -1,0 +1,297 @@
+<h2 id='getaccounttransactions'>GetAccountTransactions</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Trading, AccountReadOnly<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Gets a list of transactions for an account.</p>
+
+<p>Results can be filtered using different search parameters such as <strong>TransactionType</strong> and <strong>ProductId</strong>, other optional fields that can serve as search parameter are defined in the request key value table below.</p>
+
+<aside class="notice"><strong>Note:</strong> In this call, “Depth” refers not to the depth of the order book, but to the count of trades to report.</aside>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetAccountTransactions</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">AccountId</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+  <span class="na">TransactionReferenceTypes</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Deposit</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Withdraw</span><span class="dl">"</span><span class="p">],</span>
+  <span class="na">ProductId</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetAccountTransactions</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">apialphapointuniversitystaging.cdnhop.net:8443</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">15a9b337-94c4-4e11-a051-287725519a45</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">91</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"TransactionReferenceTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Deposit"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Withdraw"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"ProductId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System from which the account’s transactions will be returned.</td>
+</tr>
+<tr>
+<td>AccountId</td>
+<td><strong>integer.</strong> The ID of the account for which transactions will be returned. If the authenticated user has elevated permission like Operator or AccountOperator, account id is not required, results to be returned will be the transactions of the authenticated user&#39;s account/s.<em>conditionally required.</em></td>
+</tr>
+<tr>
+<td>Depth</td>
+<td><strong>integer.</strong> The number of transactions that will be returned, starting with the most recent transaction. If not defined, all transactions of the account will be returned(assuming not other search parameters are defined).<em>optional.</em></td>
+</tr>
+<tr>
+<td>ProductId</td>
+<td><strong>integer.</strong> Can be used to filter results, if set, only transactions for the specific product id specified will be returned, else, all transactions regardless of the product will be returned(assuming not other search parameters are defined).<em>optional.</em></td>
+</tr>
+<tr>
+<td>TransactionId</td>
+<td><strong>integer.</strong> Can be used to filter results, if set, only transaction with the specific id specified will be returned, else, all transactions regardless of the transaction id will be returned(assuming not other search parameters are defined).<em>optional.</em></td>
+</tr>
+<tr>
+<td>ReferenceId</td>
+<td><strong>integer.</strong> Can be used to filter results, if set, only transaction with the specific id specified will be returned, else, all transactions regardless of the reference id will be returned(assuming not other search parameters are defined).<em>optional.</em></td>
+</tr>
+<tr>
+<td>TransactionTypes</td>
+<td><strong>array of string or integer type.</strong> Can be used to filter results according to transaction type/s(can filter with either just 1 or more). If not set, transactions with any transaction type will be returned.<em>optional.</em></td>
+</tr>
+<tr>
+<td>TransactionReferenceTypes</td>
+<td><strong>array of string or integer type.</strong> Can be used to filter results according to transaction reference type/s(can filter with either just 1 or more). If not set, transactions with any transaction reference type will be returned.<em>optional.</em></td>
+</tr>
+<tr>
+<td>StartTimestamp</td>
+<td><strong>long integer.</strong> Can be used to filter results based on timestamp the transaction has happened. This filter will return transactions that happened on or after(earliest possible time) the specified timestamp value, if not set, transactions that happened any time will be returned.<em>optional.</em></td>
+</tr>
+<tr>
+<td>EndTimeStamp</td>
+<td><strong>long integer.</strong> Can be used to filter results based on timestamp the transaction has happened. This filter will return transactions that happened on or before(latest possible time) the specified timestamp value, if not set, transactions that happened any time will be returned.<em>optional.</em></td>
+</tr>
+</tbody></table>
+<h3 id='transactiontypes-enums'>TransactionTypes Enums</h3>
+<p><strong>1</strong> Fee<br />
+<strong>2</strong> Trade<br />
+<strong>3</strong> Other<br />
+<strong>4</strong> Reverse<br />
+<strong>5</strong> Hold<br />
+<strong>6</strong> Rebate<br />
+<strong>7</strong> MarginAcquisition<br />
+<strong>8</strong> MarginRelinquishByTrade<br />
+<strong>9</strong> MarginInterestTransfer<br />
+<strong>10</strong> MarginOperatorTransferToMarginAccount<br />
+<strong>11</strong> MarginOperatorTransferToAssetAccount<br />
+<strong>12</strong> MarginUserTransfer<br />
+<strong>13</strong> MarginRelinquishByTransfer<br />
+<strong>14</strong> MarginRelinquishByReverseTrade<br />
+<strong>15</strong> Distribution<br />
+<strong>16</strong> Payment<br />
+<strong>21</strong> OperatorLend<br />
+<strong>22</strong> OperatorReceived<br />
+<strong>23</strong> Rebalance<br />
+<strong>24</strong> Commission<br />
+<strong>25</strong> AirDrop<br /></p>
+<h3 id='transactionreferencetypes-enums'>TransactionReferenceTypes Enums</h3>
+<p><strong>1</strong> Trade<br />
+<strong>2</strong> Deposit<br />
+<strong>3</strong> Withdraw<br />
+<strong>4</strong> Transfer<br />
+<strong>5</strong> OrderHold<br />
+<strong>6</strong> WithdrawHold<br />
+<strong>7</strong> DepositHold<br />
+<strong>8</strong> MarginHold<br />
+<strong>9</strong> ManualHold<br />
+<strong>10</strong> ManualEntry<br />
+<strong>11</strong> MarginAcquisition<br />
+<strong>12</strong> MarginRelinquish<br />
+<strong>13</strong> MarginInterestNetting<br />
+<strong>14</strong> MarginOperatorTransferToMarginAccount<br />
+<strong>15</strong> MarginOperatorTransferToAssetAccount<br />
+<strong>16</strong> MarginUserTransfer<br />
+<strong>17</strong> MarginPositionReverseTrade<br />
+<strong>18</strong> AffiliateRebate<br />
+<strong>19</strong> DistributionEntry<br />
+<strong>20</strong> TransferHold<br />
+<strong>21</strong> AirDrop<br /></p>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="na">TransactionId</span><span class="p">:</span> <span class="mi">24214</span><span class="p">,</span>
+    <span class="na">ReferenceId</span><span class="p">:</span> <span class="mi">294</span><span class="p">,</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">AccountId</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="na">CR</span><span class="p">:</span> <span class="mf">0.01247667</span><span class="p">,</span>
+    <span class="na">DR</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">Counterparty</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">TransactionType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Other</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ReferenceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Deposit</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ProductId</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">Balance</span><span class="p">:</span> <span class="mf">1.138154399436</span><span class="p">,</span>
+    <span class="na">TimeStamp</span><span class="p">:</span> <span class="mi">1678904016338</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">TransactionId</span><span class="p">:</span> <span class="mi">24021</span><span class="p">,</span>
+    <span class="na">ReferenceId</span><span class="p">:</span> <span class="mi">293</span><span class="p">,</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">AccountId</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="na">CR</span><span class="p">:</span> <span class="mf">0.01247667</span><span class="p">,</span>
+    <span class="na">DR</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">Counterparty</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">TransactionType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Other</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ReferenceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Deposit</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ProductId</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">Balance</span><span class="p">:</span> <span class="mf">1.125677729436</span><span class="p">,</span>
+    <span class="na">TimeStamp</span><span class="p">:</span> <span class="mi">1678706804112</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">TransactionId</span><span class="p">:</span> <span class="mi">23403</span><span class="p">,</span>
+    <span class="na">ReferenceId</span><span class="p">:</span> <span class="mi">292</span><span class="p">,</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">AccountId</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="na">CR</span><span class="p">:</span> <span class="mf">0.01311447</span><span class="p">,</span>
+    <span class="na">DR</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">Counterparty</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">TransactionType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Other</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ReferenceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Deposit</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ProductId</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">Balance</span><span class="p">:</span> <span class="mf">1.122515996076</span><span class="p">,</span>
+    <span class="na">TimeStamp</span><span class="p">:</span> <span class="mi">1677575188002</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">TransactionId</span><span class="p">:</span> <span class="mi">22693</span><span class="p">,</span>
+    <span class="na">ReferenceId</span><span class="p">:</span> <span class="mi">286</span><span class="p">,</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">AccountId</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="na">CR</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">DR</span><span class="p">:</span> <span class="mf">0.00001</span><span class="p">,</span>
+    <span class="na">Counterparty</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">TransactionType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Other</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ReferenceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Withdraw</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ProductId</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">Balance</span><span class="p">:</span> <span class="mf">1.11033172</span><span class="p">,</span>
+    <span class="na">TimeStamp</span><span class="p">:</span> <span class="mi">1676348233473</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">];</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">[
+    {
+        "TransactionId": 24214,
+        "ReferenceId": 294,
+        "OMSId": 1,
+        "AccountId": 7,
+        "CR": 0.0124766700000000000000000000,
+        "DR": 0.0000000000000000000000000000,
+        "Counterparty": 3,
+        "TransactionType": "Other",
+        "ReferenceType": "Deposit",
+        "ProductId": 3,
+        "Balance": 1.1381543994360000000000000000,
+        "TimeStamp": 1678904016338
+    },
+    {
+        "TransactionId": 24021,
+        "ReferenceId": 293,
+        "OMSId": 1,
+        "AccountId": 7,
+        "CR": 0.0124766700000000000000000000,
+        "DR": 0.0000000000000000000000000000,
+        "Counterparty": 3,
+        "TransactionType": "Other",
+        "ReferenceType": "Deposit",
+        "ProductId": 3,
+        "Balance": 1.1256777294360000000000000000,
+        "TimeStamp": 1678706804112
+    },
+    {
+        "TransactionId": 23403,
+        "ReferenceId": 292,
+        "OMSId": 1,
+        "AccountId": 7,
+        "CR": 0.0131144700000000000000000000,
+        "DR": 0.0000000000000000000000000000,
+        "Counterparty": 3,
+        "TransactionType": "Other",
+        "ReferenceType": "Deposit",
+        "ProductId": 3,
+        "Balance": 1.1225159960760000000000000000,
+        "TimeStamp": 1677575188002
+    },
+    {
+        "TransactionId": 22693,
+        "ReferenceId": 286,
+        "OMSId": 1,
+        "AccountId": 7,
+        "CR": 0.0000000000000000000000000000,
+        "DR": 0.0000100000000000000000000000,
+        "Counterparty": 3,
+        "TransactionType": "Other",
+        "ReferenceType": "Withdraw",
+        "ProductId": 3,
+        "Balance": 1.1103317200000000000000000000,
+        "TimeStamp": 1676348233473
+    }
+]
+</span></code></pre></div>
+<p>The response returns an array of objects, each object represents a transaction.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>transactionId</td>
+<td><strong>Integer.</strong> The ID of the transaction.</td>
+</tr>
+<tr>
+<td>omsId</td>
+<td><strong>Integer.</strong> The ID of the Order Management System under which the requested transactions took place.</td>
+</tr>
+<tr>
+<td>accountId</td>
+<td><strong>Integer.</strong> The single account under which the transactions took place.</td>
+</tr>
+<tr>
+<td>cr</td>
+<td><strong>real.</strong> Credit entry for the account on the order book. Funds entering an account.</td>
+</tr>
+<tr>
+<td>dr</td>
+<td><strong>real.</strong> Debit entry for the account on the order book. Funds leaving an account.</td>
+</tr>
+<tr>
+<td>counterparty</td>
+<td><strong>long integer.</strong> The corresponding party in a trade.</td>
+</tr>
+<tr>
+<td>transactionType</td>
+<td><strong>integer.</strong> A number representing the type of transaction:<br />1 Fee<br />2 Trade<br />3 Other<br />4 Reverse<br />5 Hold<br />6 Rebate<br />7 MarginAcquisition<br />8 MarginRelinquish</td>
+</tr>
+<tr>
+<td>referenceId</td>
+<td><strong>long integer.</strong> The ID of the action or event that triggered this transaction.</td>
+</tr>
+<tr>
+<td>referenceType</td>
+<td><strong>integer.</strong> A number representing the type of action or event that triggered this transaction. One of:<br />1 Trade<br />2 Deposit<br />3 Withdraw<br />4 Transfer<br />5 OrderHold<br />6 WithdrawHold<br />7 DepositHold<br />8 MarginHold<br />9 ManualHold<br />10 ManualEntry<br />11 MarginAcquisition<br />12 MarginRelinquish<br />13 MarginQuoteHold</td>
+</tr>
+<tr>
+<td>productId</td>
+<td><strong>integer.</strong> The ID of the product on this account’s side of the transaction. For example, in a dollars-for-BitCoin transaction, one side will have the product Dollar and the other side will have the product BitCoin. Use <strong>GetProduct</strong> to return information about a product based on its ID.</td>
+</tr>
+<tr>
+<td>balance</td>
+<td><strong>real.</strong> The balance in the account after the transaction.</td>
+</tr>
+<tr>
+<td>timeStamp</td>
+<td><strong>long integer.</strong> Time at which the transaction took place, in POSIX format.</td>
+</tr>
+</tbody></table>

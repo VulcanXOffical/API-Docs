@@ -1,0 +1,50 @@
+<h2 id='subscribeaccountevents'>SubscribeAccountEvents</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Trading<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Subscribe to account-level events, such as orders, trades, deposits and withdraws. Can be used to monitor account transactions real-time.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">SubscribeAccountEvents</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">AccountId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">//SubscribeAccountEvents is not available in HTTP. Subscription APIs is not supported in HTTP.
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the OMS on which the snapshot of all instruments will be taken.<em>required.</em></td>
+</tr>
+<tr>
+<td>AccountId</td>
+<td><strong>integer.</strong> The ID of the account to subscribe with.<em>required.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="nl">Subscribed</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="c1">//Example account event that can be received</span>
+<span class="p">{</span>
+  <span class="na">m</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="na">i</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="na">n</span><span class="p">:</span> <span class="dl">'</span><span class="s1">WithdrawTicketUpdateEvent</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">o</span><span class="p">:</span> <span class="dl">'</span><span class="s1">{"AssetManagerId":1,"AccountProviderId":0,"AccountId":7,"AccountName":"harolds","AssetId":3,"AssetName":"TBTC","Amount":0.0010000000000000000000000000,"NotionalValue":0.0010000000000000000000000000,"NotionalProductId":1,"TemplateForm":"{</span><span class="se">\\</span><span class="s1">"Fullname</span><span class="se">\\</span><span class="s1">":</span><span class="se">\\</span><span class="s1">"Harold</span><span class="se">\\</span><span class="s1">"}","TemplateFormType":null,"OMSId":1,"RequestCode":"ef0ec64d-953b-477d-80b7-c3b0bf4cad64","RequestIP":null,"RequestUserId":1,"RequestUserName":"admin","OperatorId":1,"Status":"Pending2Fa","FeeAmt":0.0000000000000000000000000000,"UpdatedByUser":0,"UpdatedByUserName":null,"TicketNumber":292,"WithdrawTransactionDetails":"{</span><span class="se">\\</span><span class="s1">"TxId</span><span class="se">\\</span><span class="s1">":null,</span><span class="se">\\</span><span class="s1">"ExternalAddress</span><span class="se">\\</span><span class="s1">":null,</span><span class="se">\\</span><span class="s1">"Amount</span><span class="se">\\</span><span class="s1">":0,</span><span class="se">\\</span><span class="s1">"Confirmed</span><span class="se">\\</span><span class="s1">":false,</span><span class="se">\\</span><span class="s1">"LastUpdated</span><span class="se">\\</span><span class="s1">":</span><span class="se">\\</span><span class="s1">"0001-01-01T00:00:00.000Z</span><span class="se">\\</span><span class="s1">",</span><span class="se">\\</span><span class="s1">"TimeSubmitted</span><span class="se">\\</span><span class="s1">":</span><span class="se">\\</span><span class="s1">"0001-01-01T00:00:00.000Z</span><span class="se">\\</span><span class="s1">",</span><span class="se">\\</span><span class="s1">"AccountProviderName</span><span class="se">\\</span><span class="s1">":null,</span><span class="se">\\</span><span class="s1">"AccountProviderId</span><span class="se">\\</span><span class="s1">":0}","RejectReason":null,"CreatedTimestamp":"2023-03-23T12:48:31.067Z","LastUpdateTimestamp":"2023-03-23T12:48:31.067Z","CreatedTimestampTick":638151725110676052,"LastUpdateTimestampTick":638151725110676052,"Comments":[],"Attachments":[],"AuditLog":[]}</span><span class="dl">'</span>
+<span class="p">}</span>
+<span class="p">{</span>
+  <span class="na">m</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="na">i</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+  <span class="na">n</span><span class="p">:</span> <span class="dl">'</span><span class="s1">AccountPositionEvent</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">o</span><span class="p">:</span> <span class="dl">'</span><span class="s1">{"OMSId":1,"AccountId":7,"ProductSymbol":"TBTC","ProductId":3,"Amount":1.1381543994360000000000000000,"Hold":1.1256211000000000000000000000,"PendingDeposits":0,"PendingWithdraws":0,"TotalDayDeposits":0,"TotalMonthDeposits":0,"TotalYearDeposits":0,"TotalDayDepositNotional":0,"TotalMonthDepositNotional":0,"TotalYearDepositNotional":0,"TotalDayWithdraws":0,"TotalMonthWithdraws":0,"TotalYearWithdraws":0,"TotalDayWithdrawNotional":0,"TotalMonthWithdrawNotional":0,"TotalYearWithdrawNotional":0,"NotionalProductId":1,"NotionalProductSymbol":"USD","NotionalValue":1.1381543994360000000000000000,"NotionalHoldAmount":1.1256211000000000000000000000,"NotionalRate":1,"TotalDayTransferNotional":0}</span><span class="dl">'</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">//SubscribeAccountEvents is not available in HTTP. Subscription APIs is not supported in HTTP.
+</span></code></pre></div>
+<p>Returns either Subscribed: true or false. If false, it means that you were not able to subscribe to events of the account. After successfully subscribing to account events, you will receive the events message for transactions that involves the account such as a withdraw transaction, the specific event name will be <strong>WithdrawTicketUpdateEvent</strong></p>

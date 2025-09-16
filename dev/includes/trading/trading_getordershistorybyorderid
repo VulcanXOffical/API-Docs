@@ -1,0 +1,555 @@
+<h2 id='getorderhistorybyorderid'>GetOrderHistoryByOrderId</h2>
+<p><strong>Category:</strong> User<br />
+<strong>Permissions:</strong> Operator, Trading<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Retrieves an order with the specified OrderId, includes all the history of that specific order, from being added to the book up to the full execution or rejection, or cancellation. ReceiveTime in POSIX format X 1000 (milliseconds since 1 January 1970)</p>
+
+<p>A user with Trading permission can retrieve an order history only for his/her account/s; a user with Operator permission can retrieve order history for all accounts.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">GetOrderHistoryByOrderId</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">OrderId</span><span class="p">:</span> <span class="mi">6459</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/GetOrderHistoryByOrderId</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">c5f917b9-f173-4c29-a615-1503d2e78023 //valid sessiontoken</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">42</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"OrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">6459</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System where the account&#39;s order history resides.<em>required.</em></td>
+</tr>
+<tr>
+<td>OrderId</td>
+<td><strong>long integer.</strong> The ID of the of the order which you want to get details and history of.<em>required.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="na">Side</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Buy</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">OrderId</span><span class="p">:</span> <span class="mi">6459</span><span class="p">,</span>
+    <span class="na">Price</span><span class="p">:</span> <span class="mf">1.3638</span><span class="p">,</span>
+    <span class="na">Quantity</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">DisplayQuantity</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">Instrument</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="na">Account</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="na">AccountName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">harolds</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">OrderType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Limit</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ClientOrderId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">OrderState</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FullyExecuted</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ReceiveTime</span><span class="p">:</span> <span class="mi">1678263954878</span><span class="p">,</span>
+    <span class="na">ReceiveTimeTicks</span><span class="p">:</span> <span class="mi">638138607548778980</span><span class="p">,</span>
+    <span class="na">LastUpdatedTime</span><span class="p">:</span> <span class="mi">1678263960020</span><span class="p">,</span>
+    <span class="na">LastUpdatedTimeTicks</span><span class="p">:</span> <span class="mi">638138607600197010</span><span class="p">,</span>
+    <span class="na">OrigQuantity</span><span class="p">:</span> <span class="mf">18307.63</span><span class="p">,</span>
+    <span class="na">QuantityExecuted</span><span class="p">:</span> <span class="mf">18307.63</span><span class="p">,</span>
+    <span class="na">GrossValueExecuted</span><span class="p">:</span> <span class="mf">24966.439664</span><span class="p">,</span>
+    <span class="na">ExecutableValue</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">AvgPrice</span><span class="p">:</span> <span class="mf">1.3637177321149706433874837977</span><span class="p">,</span>
+    <span class="na">CounterPartyId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">ChangeReason</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Trade</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">OrigOrderId</span><span class="p">:</span> <span class="mi">6455</span><span class="p">,</span>
+    <span class="na">OrigClOrdId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">EnteredBy</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="na">UserName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">harold_superuser</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">IsQuote</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">InsideAsk</span><span class="p">:</span> <span class="mf">1.3646</span><span class="p">,</span>
+    <span class="na">InsideAskSize</span><span class="p">:</span> <span class="mf">8959.3</span><span class="p">,</span>
+    <span class="na">InsideBid</span><span class="p">:</span> <span class="mf">1.3638</span><span class="p">,</span>
+    <span class="na">InsideBidSize</span><span class="p">:</span> <span class="mf">10776.98</span><span class="p">,</span>
+    <span class="na">LastTradePrice</span><span class="p">:</span> <span class="mf">1.3636</span><span class="p">,</span>
+    <span class="na">RejectReason</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="na">IsLockedIn</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">CancelReason</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="na">OrderFlag</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AddedToBook, RemovedFromBook</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">UseMargin</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">StopPrice</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PegPriceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Last</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">PegOffset</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PegLimitOffset</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">IpAddress</span><span class="p">:</span> <span class="dl">"</span><span class="s2">69.10.61.175</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">IPv6a</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">IPv6b</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">ClientOrderIdUuid</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">Side</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Buy</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">OrderId</span><span class="p">:</span> <span class="mi">6459</span><span class="p">,</span>
+    <span class="na">Price</span><span class="p">:</span> <span class="mf">1.3638</span><span class="p">,</span>
+    <span class="na">Quantity</span><span class="p">:</span> <span class="mf">10776.98</span><span class="p">,</span>
+    <span class="na">DisplayQuantity</span><span class="p">:</span> <span class="mf">10776.98</span><span class="p">,</span>
+    <span class="na">Instrument</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="na">Account</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="na">AccountName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">harolds</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">OrderType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Limit</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ClientOrderId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">OrderState</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Working</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ReceiveTime</span><span class="p">:</span> <span class="mi">1678263954878</span><span class="p">,</span>
+    <span class="na">ReceiveTimeTicks</span><span class="p">:</span> <span class="mi">638138607548778980</span><span class="p">,</span>
+    <span class="na">LastUpdatedTime</span><span class="p">:</span> <span class="mi">1678263954881</span><span class="p">,</span>
+    <span class="na">LastUpdatedTimeTicks</span><span class="p">:</span> <span class="mi">638138607548809830</span><span class="p">,</span>
+    <span class="na">OrigQuantity</span><span class="p">:</span> <span class="mf">18307.63</span><span class="p">,</span>
+    <span class="na">QuantityExecuted</span><span class="p">:</span> <span class="mf">7530.65</span><span class="p">,</span>
+    <span class="na">GrossValueExecuted</span><span class="p">:</span> <span class="mf">10268.79434</span><span class="p">,</span>
+    <span class="na">ExecutableValue</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">AvgPrice</span><span class="p">:</span> <span class="mf">1.3636</span><span class="p">,</span>
+    <span class="na">CounterPartyId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">ChangeReason</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Trade</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">OrigOrderId</span><span class="p">:</span> <span class="mi">6455</span><span class="p">,</span>
+    <span class="na">OrigClOrdId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">EnteredBy</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="na">UserName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">harold_superuser</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">IsQuote</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">InsideAsk</span><span class="p">:</span> <span class="mf">1.3646</span><span class="p">,</span>
+    <span class="na">InsideAskSize</span><span class="p">:</span> <span class="mf">8959.3</span><span class="p">,</span>
+    <span class="na">InsideBid</span><span class="p">:</span> <span class="mf">1.3638</span><span class="p">,</span>
+    <span class="na">InsideBidSize</span><span class="p">:</span> <span class="mf">10776.98</span><span class="p">,</span>
+    <span class="na">LastTradePrice</span><span class="p">:</span> <span class="mf">1.3636</span><span class="p">,</span>
+    <span class="na">RejectReason</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="na">IsLockedIn</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">CancelReason</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="na">OrderFlag</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AddedToBook</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">UseMargin</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">StopPrice</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PegPriceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Last</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">PegOffset</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PegLimitOffset</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">IpAddress</span><span class="p">:</span> <span class="dl">"</span><span class="s2">69.10.61.175</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">IPv6a</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">IPv6b</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">ClientOrderIdUuid</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">Side</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Buy</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">OrderId</span><span class="p">:</span> <span class="mi">6459</span><span class="p">,</span>
+    <span class="na">Price</span><span class="p">:</span> <span class="mf">1.3638</span><span class="p">,</span>
+    <span class="na">Quantity</span><span class="p">:</span> <span class="mf">10776.98</span><span class="p">,</span>
+    <span class="na">DisplayQuantity</span><span class="p">:</span> <span class="mf">10776.98</span><span class="p">,</span>
+    <span class="na">Instrument</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="na">Account</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="na">AccountName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">harolds</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">OrderType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Limit</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ClientOrderId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">OrderState</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Working</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ReceiveTime</span><span class="p">:</span> <span class="mi">1678263954878</span><span class="p">,</span>
+    <span class="na">ReceiveTimeTicks</span><span class="p">:</span> <span class="mi">638138607548778980</span><span class="p">,</span>
+    <span class="na">LastUpdatedTime</span><span class="p">:</span> <span class="mi">1678263954881</span><span class="p">,</span>
+    <span class="na">LastUpdatedTimeTicks</span><span class="p">:</span> <span class="mi">638138607548807642</span><span class="p">,</span>
+    <span class="na">OrigQuantity</span><span class="p">:</span> <span class="mf">18307.63</span><span class="p">,</span>
+    <span class="na">QuantityExecuted</span><span class="p">:</span> <span class="mf">7530.65</span><span class="p">,</span>
+    <span class="na">GrossValueExecuted</span><span class="p">:</span> <span class="mf">10268.79434</span><span class="p">,</span>
+    <span class="na">ExecutableValue</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">AvgPrice</span><span class="p">:</span> <span class="mf">1.3636</span><span class="p">,</span>
+    <span class="na">CounterPartyId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">ChangeReason</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Trade</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">OrigOrderId</span><span class="p">:</span> <span class="mi">6455</span><span class="p">,</span>
+    <span class="na">OrigClOrdId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">EnteredBy</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="na">UserName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">harold_superuser</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">IsQuote</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">InsideAsk</span><span class="p">:</span> <span class="mf">1.3636</span><span class="p">,</span>
+    <span class="na">InsideAskSize</span><span class="p">:</span> <span class="mf">7530.65</span><span class="p">,</span>
+    <span class="na">InsideBid</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">InsideBidSize</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">LastTradePrice</span><span class="p">:</span> <span class="mf">1.3636</span><span class="p">,</span>
+    <span class="na">RejectReason</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="na">IsLockedIn</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">CancelReason</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="na">OrderFlag</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">UseMargin</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">StopPrice</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PegPriceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Last</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">PegOffset</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PegLimitOffset</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">IpAddress</span><span class="p">:</span> <span class="dl">"</span><span class="s2">69.10.61.175</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">IPv6a</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">IPv6b</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">ClientOrderIdUuid</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">Side</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Buy</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">OrderId</span><span class="p">:</span> <span class="mi">6459</span><span class="p">,</span>
+    <span class="na">Price</span><span class="p">:</span> <span class="mf">1.3638</span><span class="p">,</span>
+    <span class="na">Quantity</span><span class="p">:</span> <span class="mf">18307.63</span><span class="p">,</span>
+    <span class="na">DisplayQuantity</span><span class="p">:</span> <span class="mf">18307.63</span><span class="p">,</span>
+    <span class="na">Instrument</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="na">Account</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="na">AccountName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">harolds</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">OrderType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Limit</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ClientOrderId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">OrderState</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Working</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">ReceiveTime</span><span class="p">:</span> <span class="mi">1678263954878</span><span class="p">,</span>
+    <span class="na">ReceiveTimeTicks</span><span class="p">:</span> <span class="mi">638138607548778980</span><span class="p">,</span>
+    <span class="na">LastUpdatedTime</span><span class="p">:</span> <span class="mi">1678263954880</span><span class="p">,</span>
+    <span class="na">LastUpdatedTimeTicks</span><span class="p">:</span> <span class="mi">638138607548795384</span><span class="p">,</span>
+    <span class="na">OrigQuantity</span><span class="p">:</span> <span class="mf">18307.63</span><span class="p">,</span>
+    <span class="na">QuantityExecuted</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">GrossValueExecuted</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">ExecutableValue</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">AvgPrice</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">CounterPartyId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">ChangeReason</span><span class="p">:</span> <span class="dl">"</span><span class="s2">NewInputAccepted</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">OrigOrderId</span><span class="p">:</span> <span class="mi">6455</span><span class="p">,</span>
+    <span class="na">OrigClOrdId</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">EnteredBy</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="na">UserName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">harold_superuser</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">IsQuote</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">InsideAsk</span><span class="p">:</span> <span class="mf">1.3636</span><span class="p">,</span>
+    <span class="na">InsideAskSize</span><span class="p">:</span> <span class="mf">7530.65</span><span class="p">,</span>
+    <span class="na">InsideBid</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">InsideBidSize</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">LastTradePrice</span><span class="p">:</span> <span class="mf">1.3636</span><span class="p">,</span>
+    <span class="na">RejectReason</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="na">IsLockedIn</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">CancelReason</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="na">OrderFlag</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">UseMargin</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">StopPrice</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PegPriceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Last</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">PegOffset</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">PegLimitOffset</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="na">IpAddress</span><span class="p">:</span> <span class="dl">"</span><span class="s2">69.10.61.175</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">IPv6a</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">IPv6b</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">ClientOrderIdUuid</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">];</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">[
+  {
+    Side: "Buy",
+    OrderId: 6459,
+    Price: 1.3638,
+    Quantity: 0.0,
+    DisplayQuantity: 0.0,
+    Instrument: 9,
+    Account: 7,
+    AccountName: "harolds",
+    OrderType: "Limit",
+    ClientOrderId: 0,
+    OrderState: "FullyExecuted",
+    ReceiveTime: 1678263954878,
+    ReceiveTimeTicks: 638138607548778980,
+    LastUpdatedTime: 1678263960020,
+    LastUpdatedTimeTicks: 638138607600197010,
+    OrigQuantity: 18307.63,
+    QuantityExecuted: 18307.63,
+    GrossValueExecuted: 24966.439664,
+    ExecutableValue: 0.0,
+    AvgPrice: 1.3637177321149706433874837977,
+    CounterPartyId: 0,
+    ChangeReason: "Trade",
+    OrigOrderId: 6455,
+    OrigClOrdId: 0,
+    EnteredBy: 6,
+    UserName: "harold_superuser",
+    IsQuote: false,
+    InsideAsk: 1.3646,
+    InsideAskSize: 8959.3,
+    InsideBid: 1.3638,
+    InsideBidSize: 10776.98,
+    LastTradePrice: 1.3636,
+    RejectReason: "",
+    IsLockedIn: false,
+    CancelReason: "",
+    OrderFlag: "AddedToBook, RemovedFromBook",
+    UseMargin: false,
+    StopPrice: 0.0,
+    PegPriceType: "Last",
+    PegOffset: 0.0,
+    PegLimitOffset: 0.0,
+    IpAddress: "69.10.61.175",
+    IPv6a: 0,
+    IPv6b: 0,
+    ClientOrderIdUuid: null,
+    OMSId: 1,
+  },
+  {
+    Side: "Buy",
+    OrderId: 6459,
+    Price: 1.3638,
+    Quantity: 10776.98,
+    DisplayQuantity: 10776.98,
+    Instrument: 9,
+    Account: 7,
+    AccountName: "harolds",
+    OrderType: "Limit",
+    ClientOrderId: 0,
+    OrderState: "Working",
+    ReceiveTime: 1678263954878,
+    ReceiveTimeTicks: 638138607548778980,
+    LastUpdatedTime: 1678263954881,
+    LastUpdatedTimeTicks: 638138607548809830,
+    OrigQuantity: 18307.63,
+    QuantityExecuted: 7530.65,
+    GrossValueExecuted: 10268.79434,
+    ExecutableValue: 0.0,
+    AvgPrice: 1.3636,
+    CounterPartyId: 0,
+    ChangeReason: "Trade",
+    OrigOrderId: 6455,
+    OrigClOrdId: 0,
+    EnteredBy: 6,
+    UserName: "harold_superuser",
+    IsQuote: false,
+    InsideAsk: 1.3646,
+    InsideAskSize: 8959.3,
+    InsideBid: 1.3638,
+    InsideBidSize: 10776.98,
+    LastTradePrice: 1.3636,
+    RejectReason: "",
+    IsLockedIn: false,
+    CancelReason: "",
+    OrderFlag: "AddedToBook",
+    UseMargin: false,
+    StopPrice: 0.0,
+    PegPriceType: "Last",
+    PegOffset: 0.0,
+    PegLimitOffset: 0.0,
+    IpAddress: "69.10.61.175",
+    IPv6a: 0,
+    IPv6b: 0,
+    ClientOrderIdUuid: null,
+    OMSId: 1,
+  },
+  {
+    Side: "Buy",
+    OrderId: 6459,
+    Price: 1.3638,
+    Quantity: 10776.98,
+    DisplayQuantity: 10776.98,
+    Instrument: 9,
+    Account: 7,
+    AccountName: "harolds",
+    OrderType: "Limit",
+    ClientOrderId: 0,
+    OrderState: "Working",
+    ReceiveTime: 1678263954878,
+    ReceiveTimeTicks: 638138607548778980,
+    LastUpdatedTime: 1678263954881,
+    LastUpdatedTimeTicks: 638138607548807642,
+    OrigQuantity: 18307.63,
+    QuantityExecuted: 7530.65,
+    GrossValueExecuted: 10268.79434,
+    ExecutableValue: 0.0,
+    AvgPrice: 1.3636,
+    CounterPartyId: 0,
+    ChangeReason: "Trade",
+    OrigOrderId: 6455,
+    OrigClOrdId: 0,
+    EnteredBy: 6,
+    UserName: "harold_superuser",
+    IsQuote: false,
+    InsideAsk: 1.3636,
+    InsideAskSize: 7530.65,
+    InsideBid: 0.0,
+    InsideBidSize: 0.0,
+    LastTradePrice: 1.3636,
+    RejectReason: "",
+    IsLockedIn: false,
+    CancelReason: "",
+    OrderFlag: "0",
+    UseMargin: false,
+    StopPrice: 0.0,
+    PegPriceType: "Last",
+    PegOffset: 0.0,
+    PegLimitOffset: 0.0,
+    IpAddress: "69.10.61.175",
+    IPv6a: 0,
+    IPv6b: 0,
+    ClientOrderIdUuid: null,
+    OMSId: 1,
+  },
+  {
+    Side: "Buy",
+    OrderId: 6459,
+    Price: 1.3638,
+    Quantity: 18307.63,
+    DisplayQuantity: 18307.63,
+    Instrument: 9,
+    Account: 7,
+    AccountName: "harolds",
+    OrderType: "Limit",
+    ClientOrderId: 0,
+    OrderState: "Working",
+    ReceiveTime: 1678263954878,
+    ReceiveTimeTicks: 638138607548778980,
+    LastUpdatedTime: 1678263954880,
+    LastUpdatedTimeTicks: 638138607548795384,
+    OrigQuantity: 18307.63,
+    QuantityExecuted: 0.0,
+    GrossValueExecuted: 0.0,
+    ExecutableValue: 0.0,
+    AvgPrice: 0.0,
+    CounterPartyId: 0,
+    ChangeReason: "NewInputAccepted",
+    OrigOrderId: 6455,
+    OrigClOrdId: 0,
+    EnteredBy: 6,
+    UserName: "harold_superuser",
+    IsQuote: false,
+    InsideAsk: 1.3636,
+    InsideAskSize: 7530.65,
+    InsideBid: 0.0,
+    InsideBidSize: 0.0,
+    LastTradePrice: 1.3636,
+    RejectReason: "",
+    IsLockedIn: false,
+    CancelReason: "",
+    OrderFlag: "0",
+    UseMargin: false,
+    StopPrice: 0.0,
+    PegPriceType: "Last",
+    PegOffset: 0.0,
+    PegLimitOffset: 0.0,
+    IpAddress: "69.10.61.175",
+    IPv6a: 0,
+    IPv6b: 0,
+    ClientOrderIdUuid: null,
+    OMSId: 1,
+  },
+];
+</span></code></pre></div>
+<p>The call <strong>GetOrderHistoryByOrderId</strong> returns an array containing all four types of orders for the named account. The call returns an empty array if there are no orders for the account.</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Side</td>
+<td><strong>string.</strong> The side of a trade. One of:<br /><strong>0</strong> Buy<br /><strong>1</strong> Sell<br /><strong>2</strong> Short<br /><strong>3</strong> Unknown (an error condition)</td>
+</tr>
+<tr>
+<td>OrderId</td>
+<td><strong>long integer.</strong> The ID of the open order. The <em>OrderID</em> is unique in each Order Management System.</td>
+</tr>
+<tr>
+<td>Price</td>
+<td><strong>real.</strong> The price at which the buy or sell has been ordered.</td>
+</tr>
+<tr>
+<td>Quantity</td>
+<td><strong>real.</strong> The quantity of the product to be bought or sold.</td>
+</tr>
+<tr>
+<td>DisplayQuantity</td>
+<td><strong>real.</strong> The quantity available to buy or sell that is publicly displayed to the market. To display a <em>displayQuantity</em> value, an order must be a Limit order with a reserve.</td>
+</tr>
+<tr>
+<td>Instrument</td>
+<td><strong>integer.</strong> ID of the instrument being traded. The call <strong>GetInstruments</strong> can supply the instrument IDs that are available.</td>
+</tr>
+<tr>
+<td>orderType</td>
+<td><strong>string.</strong> Describes the type of order this is. One of:<br /><strong>0</strong> Unknown (an error condition)<br /><strong>1</strong> Market order<br /><strong>2</strong> Limit<br /><strong>3</strong> StopMarket<br /><strong>4</strong> StopLimit<br /><strong>5</strong> TrailingStopMarket<br /><strong>6</strong> TrailingStopLimit<br /><strong>7</strong> BlockTrade</td>
+</tr>
+<tr>
+<td>ClientOrderId</td>
+<td><strong>long integer.</strong> An ID supplied by the client to identify the order (like a purchase order number). The <em>ClientOrderId</em> defaults to 0 if not supplied.</td>
+</tr>
+<tr>
+<td>OrderState</td>
+<td><strong>string.</strong> The current state of the order. One of:<br /><strong>0</strong> Unknown<br /><strong>1</strong> Working<br /><strong>2</strong> Rejected<br /><strong>3</strong> Canceled<br /><strong>4</strong> Expired<br /><strong>5</strong> Fully Executed.</td>
+</tr>
+<tr>
+<td>ReceiveTime</td>
+<td><strong>long integer.</strong> Time stamp of the order in POSIX format x 1000 (milliseconds since 1/1/1970 in UTC time zone).</td>
+</tr>
+<tr>
+<td>ReceiveTimeTicks</td>
+<td><strong>long integer.</strong> Time stamp of the order Microsoft Ticks format and UTC time zone. <strong>Note:</strong> Microsoft Ticks format is usually provided as a string. Here it is provided as a long integer.</td>
+</tr>
+<tr>
+<td>OrigQuantity</td>
+<td><strong>real.</strong> If the open order has been changed or partially filled, this value shows the original quantity of the order.</td>
+</tr>
+<tr>
+<td>QuantityExecuted</td>
+<td><strong>real.</strong> If the open order has been at least partially executed, this value shows the amount that has been executed.</td>
+</tr>
+<tr>
+<td>AvgPrice</td>
+<td><strong>real.</strong> The average executed price for the instrument in the order.</td>
+</tr>
+<tr>
+<td>CounterPartyId</td>
+<td><strong>integer.</strong> The ID of the other party in an off-market trade.</td>
+</tr>
+<tr>
+<td>ChangeReason</td>
+<td><strong>string.</strong> If the order has been changed, this string value holds the reason. One of:<br /><strong>0</strong> Unknown<br /><strong>1</strong> NewInputAccepted<br /><strong>2</strong> NewInputRejected<br /><strong>3</strong> OtherRejected<br /><strong>4</strong> Expired<br /><strong>5</strong> Trade<br /><strong>6</strong> SystemCanceled_NoMoreMarket<br /><strong>7</strong> SystemCanceled_BelowMinimum<br /><strong>8</strong> SystemCanceled_PriceCollar<br /><strong>9</strong> SystemCanceled_MarginFailed<br /><strong>100</strong> UserModified</td>
+</tr>
+<tr>
+<td>OrigOrderId</td>
+<td><strong>integer.</strong> If the order has been changed, this is the ID of the original order.</td>
+</tr>
+<tr>
+<td>OrigClOrdId</td>
+<td><strong>integer.</strong> If the order has been changed, this is the ID of the original client order ID.</td>
+</tr>
+<tr>
+<td>EnteredBy</td>
+<td><strong>integer.</strong> The user ID of the person who entered the order.</td>
+</tr>
+<tr>
+<td>IsQuote</td>
+<td><strong>Boolean.</strong> If this order is a quote, the value for <em>IsQuote</em> is <em>true,</em> else <em>false.</em></td>
+</tr>
+<tr>
+<td>InsideAsk</td>
+<td><strong>real.</strong> If this order is a quote, this value is the Inside Ask price.</td>
+</tr>
+<tr>
+<td>InsideAskSize</td>
+<td><strong>real.</strong> If this order is a quote, this value is the quantity of the Inside Ask quote.</td>
+</tr>
+<tr>
+<td>InsideBid</td>
+<td><strong>real.</strong> If this order is a quote, this value is the Inside Bid price.</td>
+</tr>
+<tr>
+<td>InsideBidSize</td>
+<td><strong>real.</strong> If this order is a quote, this value is the quantity of the Inside Bid quote.</td>
+</tr>
+<tr>
+<td>LastTradePrice</td>
+<td><strong>real.</strong> The last price that this instrument traded at.</td>
+</tr>
+<tr>
+<td>RejectReason</td>
+<td><strong>string.</strong> If this open order has been rejected, this string holds the reason for the rejection.</td>
+</tr>
+<tr>
+<td>IsLockedIn</td>
+<td><strong>Boolean.</strong> For a block trade, if both parties to the block trade agree that one of the parties will report the trade for both sides, this value is <em>true.</em> Othersise, <em>false.</em></td>
+</tr>
+<tr>
+<td>CancelReason</td>
+<td><strong>string.</strong> If this order has been canceled, this string holds the cancelation reason.</td>
+</tr>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the Order Management System on which the order took place.</td>
+</tr>
+</tbody></table>

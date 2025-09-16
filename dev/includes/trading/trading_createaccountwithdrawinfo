@@ -1,0 +1,70 @@
+<h2 id='createaccountwithdrawinfo'>CreateAccountWithdrawInfo</h2>
+<p><strong>Category:</strong> Trading<br />
+<strong>Permissions:</strong> Operator,Withdraw<br />
+<strong>Call Type:</strong> Synchronous</p>
+
+<p>Creates a new withdraw info for an account to store and use later for withdrawals. The accountwithdrawinfo to that will be created is also known as the whitelisted withdraw address.</p>
+<h3 id='request'>Request</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">APEX</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">alphapoint-apex-api</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">apex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">APEX</span><span class="p">(</span><span class="dl">"</span><span class="s2">websocket url goes here...</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">apex</span><span class="p">.</span><span class="nx">RPCPromise</span><span class="p">(</span><span class="dl">"</span><span class="s2">CreateAccountWithdrawInfo</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">OMSId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">AccountId</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+  <span class="na">ProductId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">AccountIdentifier</span><span class="p">:</span> <span class="dl">"</span><span class="s2">asfasfasdf11dasfasf11</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">Name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Sample</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">/AP/CreateAccountWithdrawInfo</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">hostname goes here...</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">aptoken</span><span class="p">:</span> <span class="s">e6567bb5-0245-4cb3-b99e-b3adebe9c94c //valid session token</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">136</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="nl">"OMSId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ProductId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"AccountIdentifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"asfasfasdf11dasfasf11"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sample"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OMSId</td>
+<td><strong>integer.</strong> The ID of the OMS where the account belongs to.<em>required.</em></td>
+</tr>
+<tr>
+<td>AccountId</td>
+<td><strong>integer.</strong> The ID of the account for which the withdraw info will be created.<em>required.</em></td>
+</tr>
+<tr>
+<td>ProductId</td>
+<td><strong>integer.</strong> The ID of the product for which the withdraw info will be created for.<em>required.</em></td>
+</tr>
+<tr>
+<td>AccountIdentifier</td>
+<td><strong>string.</strong> The actual withdraw address.<em>required.</em></td>
+</tr>
+<tr>
+<td>Name</td>
+<td><strong>string.</strong> Any string that can be used to identify the withdraw info.<em>required.</em></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="dl">"</span><span class="s2">result</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">errormsg</span><span class="dl">"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">errorcode</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">detail</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">4ed30f50-b8ad-491b-823d-70acdfdeb0be</span><span class="dl">"</span> <span class="c1">//ID of the account withdraw info</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="err">{
+    "result": true,
+    "errormsg": null,
+    "errorcode": 0,
+    "detail": "4ed30f50-b8ad-491b-823d-70acdfdeb0be"
+}
+</span></code></pre></div>
