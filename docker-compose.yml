@@ -1,8 +1,8 @@
 services:
-  slate-docs-dev:
+  slate-docs-prod:
     build:
       context: .
-    container_name: slate-docs-dev
+    container_name: slate-docs-prod
     volumes:
       - .:/srv/slate
     ports:
