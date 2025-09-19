@@ -1,0 +1,10 @@
+services:
+  slate-docs-dev:
+    build:
+      context: .
+    container_name: slate-docs-dev
+    volumes:
+      - .:/srv/slate
+    ports:
+      - "4567:4567"
+    command: ["serve"]   # overrides CMD ["build"]
