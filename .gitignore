@@ -16,6 +16,8 @@ build/
 .cache
 .vagrant
 .sass-cache
+docker-compose.yml
+Dockerfile
 
 # YARD artifacts
 .yardoc
